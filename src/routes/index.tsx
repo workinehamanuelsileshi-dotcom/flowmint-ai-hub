@@ -70,7 +70,6 @@ function Landing() {
         <WhyFlowmint />
         <ForBusinessesCreators />
         <Outcomes />
-        <Pricing />
         <FAQ />
         <FinalCTA />
       </main>
@@ -90,7 +89,7 @@ function Nav() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  const links = ["Marketplace", "Solutions", "Business", "Creators", "Pricing", "Resources"];
+  const links = ["Marketplace", "Solutions", "Business", "Creators", "Resources"];
 
   return (
     <header className="fixed inset-x-0 top-4 z-50 flex justify-center px-4">
@@ -1216,111 +1215,6 @@ function Outcomes() {
   );
 }
 
-/* ── Pricing ─────────────────────────────────────────────────── */
-
-function Pricing() {
-  const tiers = [
-    {
-      name: "Free",
-      price: "$0",
-      body: "Explore the marketplace and connect with creators.",
-      features: ["Personalized feed", "Workflow previews", "Chat with creators"],
-      cta: "Start free",
-      accent: false,
-    },
-    {
-      name: "Professional",
-      price: "$49",
-      suffix: "/mo",
-      body: "For growing businesses deploying multiple automations.",
-      features: ["Business DNA", "Priority matching", "ROI analytics", "Escrow payments"],
-      cta: "Start trial",
-      accent: true,
-    },
-    {
-      name: "Enterprise",
-      price: "Custom",
-      body: "For teams that need governance, SSO and support.",
-      features: ["SSO & SCIM", "Audit logs", "Dedicated CSM", "Custom SLAs"],
-      cta: "Talk to sales",
-      accent: false,
-    },
-  ];
-  return (
-    <section className="py-32 md:py-40">
-      <div className="mx-auto max-w-[1240px] px-6 lg:px-8">
-        <div className="mx-auto max-w-3xl text-center">
-          <p className="text-[11px] font-medium uppercase tracking-[0.18em] text-muted-foreground">
-            Pricing
-          </p>
-          <h2 className="mt-5 text-balance text-[40px] font-medium leading-[1.05] tracking-[-0.035em] md:text-[52px]">
-            Simple. Transparent. Fair.
-          </h2>
-        </div>
-        <div className="mt-16 grid gap-5 md:grid-cols-3">
-          {tiers.map((t) => (
-            <article
-              key={t.name}
-              className={`flex flex-col rounded-2xl border p-8 transition-all duration-300 ${
-                t.accent
-                  ? "border-foreground bg-foreground text-background"
-                  : "border-border bg-card"
-              }`}
-            >
-              <div className="flex items-center justify-between">
-                <h3 className="text-[15px] font-medium">{t.name}</h3>
-                {t.accent && (
-                  <span className="rounded-full bg-primary px-2 py-0.5 text-[10.5px] font-medium uppercase tracking-wider text-primary-foreground">
-                    Popular
-                  </span>
-                )}
-              </div>
-              <p className="mt-8 flex items-baseline gap-1 text-[56px] font-medium leading-none tracking-[-0.04em]">
-                {t.price}
-                {t.suffix && (
-                  <span
-                    className={`text-[15px] font-normal ${
-                      t.accent ? "text-background/60" : "text-muted-foreground"
-                    }`}
-                  >
-                    {t.suffix}
-                  </span>
-                )}
-              </p>
-              <p
-                className={`mt-4 text-[14.5px] leading-[1.55] ${
-                  t.accent ? "text-background/70" : "text-muted-foreground"
-                }`}
-              >
-                {t.body}
-              </p>
-              <ul className="mt-8 space-y-3 text-[14px]">
-                {t.features.map((f) => (
-                  <li key={f} className="flex items-center gap-2.5">
-                    <Check
-                      className={`h-4 w-4 ${t.accent ? "text-primary-foreground" : "text-primary"}`}
-                    />
-                    {f}
-                  </li>
-                ))}
-              </ul>
-              <a
-                href="#"
-                className={`mt-10 inline-flex h-11 items-center justify-center gap-2 rounded-full text-[13.5px] font-medium transition-colors ${
-                  t.accent
-                    ? "bg-background text-foreground hover:bg-background/90"
-                    : "border border-border bg-background text-foreground hover:bg-muted"
-                }`}
-              >
-                {t.cta}
-              </a>
-            </article>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
 
 /* ── FAQ ─────────────────────────────────────────────────────── */
 
