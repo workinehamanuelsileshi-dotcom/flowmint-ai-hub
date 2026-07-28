@@ -24,6 +24,10 @@ import {
   Grid,
   Command,
 } from "lucide-react";
+import dnaWorkspace from "../assets/dna-workspace.jpg";
+import forBusinesses from "../assets/for-businesses.jpg";
+import forCreators from "../assets/for-creators.jpg";
+import finalCtaBg from "../assets/final-cta-bg.jpg";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -480,16 +484,16 @@ function MiniFlow() {
 
 function Ecosystem() {
   const logos = [
-    "OpenAI",
-    "Claude",
-    "Gemini",
-    "n8n",
-    "Zapier",
-    "Make",
-    "Slack",
-    "HubSpot",
-    "Shopify",
-    "Notion",
+    { name: "OpenAI", slug: "openai" },
+    { name: "Anthropic", slug: "anthropic" },
+    { name: "Google Gemini", slug: "googlegemini" },
+    { name: "n8n", slug: "n8n" },
+    { name: "Zapier", slug: "zapier" },
+    { name: "Make", slug: "make" },
+    { name: "Slack", slug: "slack" },
+    { name: "HubSpot", slug: "hubspot" },
+    { name: "Shopify", slug: "shopify" },
+    { name: "Notion", slug: "notion" },
   ];
   return (
     <section className="border-y border-border py-24 md:py-28">
@@ -500,13 +504,21 @@ function Ecosystem() {
         <h2 className="mx-auto mt-4 max-w-3xl text-balance text-center text-[28px] font-medium tracking-tight md:text-[36px]">
           Built on the world's leading AI ecosystem.
         </h2>
-        <ul className="mx-auto mt-14 grid max-w-5xl grid-cols-2 gap-x-8 gap-y-10 sm:grid-cols-3 md:grid-cols-5">
+        <ul className="mx-auto mt-14 grid max-w-5xl grid-cols-2 items-center gap-x-10 gap-y-12 sm:grid-cols-3 md:grid-cols-5">
           {logos.map((l) => (
             <li
-              key={l}
-              className="flex items-center justify-center text-[15px] font-medium text-muted-foreground/70 transition-colors duration-200 hover:text-primary"
+              key={l.name}
+              className="flex items-center justify-center"
+              title={l.name}
             >
-              {l}
+              <img
+                src={`https://cdn.simpleicons.org/${l.slug}/737373`}
+                alt={`${l.name} logo`}
+                loading="lazy"
+                width={96}
+                height={28}
+                className="h-7 w-auto max-w-[110px] object-contain opacity-60 transition-all duration-300 hover:opacity-100"
+              />
             </li>
           ))}
         </ul>
@@ -749,34 +761,46 @@ function BusinessDNA() {
           </div>
         </div>
 
-        <div className="rounded-2xl border border-border bg-card p-8">
-          <ol className="space-y-2">
-            {steps.map((s, i) => {
-              const highlight = i === 5 || i === 6 || i === 7;
-              return (
-                <li key={s}>
-                  <div
-                    className={`flex items-center justify-between rounded-xl border px-4 py-3 transition-colors ${
-                      highlight
-                        ? "border-primary/30 bg-primary/5"
-                        : "border-border bg-background"
-                    }`}
-                  >
-                    <div className="flex items-center gap-3">
-                      <span className="font-mono text-[11px] text-muted-foreground">
-                        {String(i + 1).padStart(2, "0")}
-                      </span>
-                      <span className="text-[14px] font-medium">{s}</span>
+        <div className="space-y-4">
+          <div className="overflow-hidden rounded-2xl border border-border bg-card">
+            <img
+              src={dnaWorkspace}
+              alt="Workspace with laptop showing analytics dashboard and hand-drawn workflow diagrams in a notebook"
+              loading="lazy"
+              width={1280}
+              height={960}
+              className="h-56 w-full object-cover md:h-64"
+            />
+          </div>
+          <div className="rounded-2xl border border-border bg-card p-8">
+            <ol className="space-y-2">
+              {steps.map((s, i) => {
+                const highlight = i === 5 || i === 6 || i === 7;
+                return (
+                  <li key={s}>
+                    <div
+                      className={`flex items-center justify-between rounded-xl border px-4 py-3 transition-colors ${
+                        highlight
+                          ? "border-primary/30 bg-primary/5"
+                          : "border-border bg-background"
+                      }`}
+                    >
+                      <div className="flex items-center gap-3">
+                        <span className="font-mono text-[11px] text-muted-foreground">
+                          {String(i + 1).padStart(2, "0")}
+                        </span>
+                        <span className="text-[14px] font-medium">{s}</span>
+                      </div>
+                      {highlight && <Sparkles className="h-3.5 w-3.5 text-primary" />}
                     </div>
-                    {highlight && <Sparkles className="h-3.5 w-3.5 text-primary" />}
-                  </div>
-                  {i < steps.length - 1 && (
-                    <div className="ml-6 h-4 w-px bg-border" />
-                  )}
-                </li>
-              );
-            })}
-          </ol>
+                    {i < steps.length - 1 && (
+                      <div className="ml-6 h-4 w-px bg-border" />
+                    )}
+                  </li>
+                );
+              })}
+            </ol>
+          </div>
         </div>
       </div>
     </section>
@@ -1095,6 +1119,8 @@ function ForBusinessesCreators() {
             body: "Discover, evaluate and deploy vetted automations aligned to your stack and goals.",
             bullets: ["Personalized marketplace", "Verified creators", "Escrow-secured payments", "Go live in days"],
             cta: "Explore Marketplace",
+            image: forBusinesses,
+            imageAlt: "Business team reviewing analytics and workflow dashboards in a bright modern office",
           },
           {
             eyebrow: "For creators",
@@ -1102,35 +1128,50 @@ function ForBusinessesCreators() {
             body: "Turn your workflows into productized automations and get paid to deploy them.",
             bullets: ["Global distribution", "Owned pricing", "Business DNA matching", "Verified badge"],
             cta: "Become Creator",
+            image: forCreators,
+            imageAlt: "Independent creator building an automation workflow on a laptop at a minimal wooden desk",
           },
         ].map((c) => (
           <article
             key={c.eyebrow}
-            className="flex flex-col rounded-2xl border border-border bg-card p-10"
+            className="flex flex-col overflow-hidden rounded-2xl border border-border bg-card"
           >
-            <p className="text-[11px] font-medium uppercase tracking-[0.18em] text-muted-foreground">
-              {c.eyebrow}
-            </p>
-            <h3 className="mt-5 text-balance text-[32px] font-medium leading-[1.1] tracking-[-0.03em] md:text-[40px]">
-              {c.title}
-            </h3>
-            <p className="mt-4 text-[15.5px] leading-[1.6] text-muted-foreground">{c.body}</p>
-            <ul className="mt-8 space-y-3 text-[14.5px]">
-              {c.bullets.map((b) => (
-                <li key={b} className="flex items-center gap-2.5 text-foreground">
-                  <Check className="h-4 w-4 text-primary" />
-                  {b}
-                </li>
-              ))}
-            </ul>
-            <div className="mt-10">
-              <a
-                href="#"
-                className="group inline-flex h-11 items-center gap-2 rounded-full bg-foreground px-5 text-[13.5px] font-medium text-background transition-colors hover:bg-primary"
-              >
-                {c.cta}
-                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
-              </a>
+            <div className="relative h-56 w-full overflow-hidden md:h-64">
+              <img
+                src={c.image}
+                alt={c.imageAlt}
+                loading="lazy"
+                width={1280}
+                height={900}
+                className="h-full w-full object-cover transition-transform duration-500 hover:scale-[1.02]"
+              />
+              <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-card/70 via-transparent to-transparent" />
+            </div>
+            <div className="flex flex-1 flex-col p-10">
+              <p className="text-[11px] font-medium uppercase tracking-[0.18em] text-muted-foreground">
+                {c.eyebrow}
+              </p>
+              <h3 className="mt-5 text-balance text-[32px] font-medium leading-[1.1] tracking-[-0.03em] md:text-[40px]">
+                {c.title}
+              </h3>
+              <p className="mt-4 text-[15.5px] leading-[1.6] text-muted-foreground">{c.body}</p>
+              <ul className="mt-8 space-y-3 text-[14.5px]">
+                {c.bullets.map((b) => (
+                  <li key={b} className="flex items-center gap-2.5 text-foreground">
+                    <Check className="h-4 w-4 text-primary" />
+                    {b}
+                  </li>
+                ))}
+              </ul>
+              <div className="mt-10">
+                <a
+                  href="#"
+                  className="group inline-flex h-11 items-center gap-2 rounded-full bg-foreground px-5 text-[13.5px] font-medium text-background transition-colors hover:bg-primary"
+                >
+                  {c.cta}
+                  <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+                </a>
+              </div>
             </div>
           </article>
         ))}
@@ -1360,7 +1401,20 @@ function FAQ() {
 
 function FinalCTA() {
   return (
-    <section className="py-40 md:py-56">
+    <section className="relative overflow-hidden py-40 md:py-56">
+      <img
+        src={finalCtaBg}
+        alt=""
+        aria-hidden="true"
+        loading="lazy"
+        width={1920}
+        height={900}
+        className="pointer-events-none absolute inset-0 -z-10 h-full w-full object-cover opacity-80"
+      />
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 -z-10 bg-gradient-to-b from-background/40 via-background/10 to-background"
+      />
       <div className="mx-auto max-w-[1240px] px-6 text-center lg:px-8">
         <h2 className="mx-auto max-w-4xl text-balance text-[52px] font-medium leading-[1.02] tracking-[-0.04em] md:text-[88px]">
           Ready to automate your business?
