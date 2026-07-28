@@ -1119,6 +1119,8 @@ function ForBusinessesCreators() {
             body: "Discover, evaluate and deploy vetted automations aligned to your stack and goals.",
             bullets: ["Personalized marketplace", "Verified creators", "Escrow-secured payments", "Go live in days"],
             cta: "Explore Marketplace",
+            image: forBusinesses,
+            imageAlt: "Business team reviewing analytics and workflow dashboards in a bright modern office",
           },
           {
             eyebrow: "For creators",
@@ -1126,35 +1128,50 @@ function ForBusinessesCreators() {
             body: "Turn your workflows into productized automations and get paid to deploy them.",
             bullets: ["Global distribution", "Owned pricing", "Business DNA matching", "Verified badge"],
             cta: "Become Creator",
+            image: forCreators,
+            imageAlt: "Independent creator building an automation workflow on a laptop at a minimal wooden desk",
           },
         ].map((c) => (
           <article
             key={c.eyebrow}
-            className="flex flex-col rounded-2xl border border-border bg-card p-10"
+            className="flex flex-col overflow-hidden rounded-2xl border border-border bg-card"
           >
-            <p className="text-[11px] font-medium uppercase tracking-[0.18em] text-muted-foreground">
-              {c.eyebrow}
-            </p>
-            <h3 className="mt-5 text-balance text-[32px] font-medium leading-[1.1] tracking-[-0.03em] md:text-[40px]">
-              {c.title}
-            </h3>
-            <p className="mt-4 text-[15.5px] leading-[1.6] text-muted-foreground">{c.body}</p>
-            <ul className="mt-8 space-y-3 text-[14.5px]">
-              {c.bullets.map((b) => (
-                <li key={b} className="flex items-center gap-2.5 text-foreground">
-                  <Check className="h-4 w-4 text-primary" />
-                  {b}
-                </li>
-              ))}
-            </ul>
-            <div className="mt-10">
-              <a
-                href="#"
-                className="group inline-flex h-11 items-center gap-2 rounded-full bg-foreground px-5 text-[13.5px] font-medium text-background transition-colors hover:bg-primary"
-              >
-                {c.cta}
-                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
-              </a>
+            <div className="relative h-56 w-full overflow-hidden md:h-64">
+              <img
+                src={c.image}
+                alt={c.imageAlt}
+                loading="lazy"
+                width={1280}
+                height={900}
+                className="h-full w-full object-cover transition-transform duration-500 hover:scale-[1.02]"
+              />
+              <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-card/70 via-transparent to-transparent" />
+            </div>
+            <div className="flex flex-1 flex-col p-10">
+              <p className="text-[11px] font-medium uppercase tracking-[0.18em] text-muted-foreground">
+                {c.eyebrow}
+              </p>
+              <h3 className="mt-5 text-balance text-[32px] font-medium leading-[1.1] tracking-[-0.03em] md:text-[40px]">
+                {c.title}
+              </h3>
+              <p className="mt-4 text-[15.5px] leading-[1.6] text-muted-foreground">{c.body}</p>
+              <ul className="mt-8 space-y-3 text-[14.5px]">
+                {c.bullets.map((b) => (
+                  <li key={b} className="flex items-center gap-2.5 text-foreground">
+                    <Check className="h-4 w-4 text-primary" />
+                    {b}
+                  </li>
+                ))}
+              </ul>
+              <div className="mt-10">
+                <a
+                  href="#"
+                  className="group inline-flex h-11 items-center gap-2 rounded-full bg-foreground px-5 text-[13.5px] font-medium text-background transition-colors hover:bg-primary"
+                >
+                  {c.cta}
+                  <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+                </a>
+              </div>
             </div>
           </article>
         ))}
