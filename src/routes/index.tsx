@@ -480,16 +480,16 @@ function MiniFlow() {
 
 function Ecosystem() {
   const logos = [
-    "OpenAI",
-    "Claude",
-    "Gemini",
-    "n8n",
-    "Zapier",
-    "Make",
-    "Slack",
-    "HubSpot",
-    "Shopify",
-    "Notion",
+    { name: "OpenAI", slug: "openai" },
+    { name: "Anthropic", slug: "anthropic" },
+    { name: "Google Gemini", slug: "googlegemini" },
+    { name: "n8n", slug: "n8n" },
+    { name: "Zapier", slug: "zapier" },
+    { name: "Make", slug: "make" },
+    { name: "Slack", slug: "slack" },
+    { name: "HubSpot", slug: "hubspot" },
+    { name: "Shopify", slug: "shopify" },
+    { name: "Notion", slug: "notion" },
   ];
   return (
     <section className="border-y border-border py-24 md:py-28">
@@ -500,13 +500,21 @@ function Ecosystem() {
         <h2 className="mx-auto mt-4 max-w-3xl text-balance text-center text-[28px] font-medium tracking-tight md:text-[36px]">
           Built on the world's leading AI ecosystem.
         </h2>
-        <ul className="mx-auto mt-14 grid max-w-5xl grid-cols-2 gap-x-8 gap-y-10 sm:grid-cols-3 md:grid-cols-5">
+        <ul className="mx-auto mt-14 grid max-w-5xl grid-cols-2 items-center gap-x-10 gap-y-12 sm:grid-cols-3 md:grid-cols-5">
           {logos.map((l) => (
             <li
-              key={l}
-              className="flex items-center justify-center text-[15px] font-medium text-muted-foreground/70 transition-colors duration-200 hover:text-primary"
+              key={l.name}
+              className="flex items-center justify-center"
+              title={l.name}
             >
-              {l}
+              <img
+                src={`https://cdn.simpleicons.org/${l.slug}/737373`}
+                alt={`${l.name} logo`}
+                loading="lazy"
+                width={96}
+                height={28}
+                className="h-7 w-auto max-w-[110px] object-contain opacity-60 transition-all duration-300 hover:opacity-100"
+              />
             </li>
           ))}
         </ul>
