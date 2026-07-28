@@ -24,6 +24,10 @@ import {
   Grid,
   Command,
 } from "lucide-react";
+import dnaWorkspace from "../assets/dna-workspace.jpg";
+import forBusinesses from "../assets/for-businesses.jpg";
+import forCreators from "../assets/for-creators.jpg";
+import finalCtaBg from "../assets/final-cta-bg.jpg";
 
 export const Route = createFileRoute("/")({
   head: () => ({
