@@ -761,34 +761,46 @@ function BusinessDNA() {
           </div>
         </div>
 
-        <div className="rounded-2xl border border-border bg-card p-8">
-          <ol className="space-y-2">
-            {steps.map((s, i) => {
-              const highlight = i === 5 || i === 6 || i === 7;
-              return (
-                <li key={s}>
-                  <div
-                    className={`flex items-center justify-between rounded-xl border px-4 py-3 transition-colors ${
-                      highlight
-                        ? "border-primary/30 bg-primary/5"
-                        : "border-border bg-background"
-                    }`}
-                  >
-                    <div className="flex items-center gap-3">
-                      <span className="font-mono text-[11px] text-muted-foreground">
-                        {String(i + 1).padStart(2, "0")}
-                      </span>
-                      <span className="text-[14px] font-medium">{s}</span>
+        <div className="space-y-4">
+          <div className="overflow-hidden rounded-2xl border border-border bg-card">
+            <img
+              src={dnaWorkspace}
+              alt="Workspace with laptop showing analytics dashboard and hand-drawn workflow diagrams in a notebook"
+              loading="lazy"
+              width={1280}
+              height={960}
+              className="h-56 w-full object-cover md:h-64"
+            />
+          </div>
+          <div className="rounded-2xl border border-border bg-card p-8">
+            <ol className="space-y-2">
+              {steps.map((s, i) => {
+                const highlight = i === 5 || i === 6 || i === 7;
+                return (
+                  <li key={s}>
+                    <div
+                      className={`flex items-center justify-between rounded-xl border px-4 py-3 transition-colors ${
+                        highlight
+                          ? "border-primary/30 bg-primary/5"
+                          : "border-border bg-background"
+                      }`}
+                    >
+                      <div className="flex items-center gap-3">
+                        <span className="font-mono text-[11px] text-muted-foreground">
+                          {String(i + 1).padStart(2, "0")}
+                        </span>
+                        <span className="text-[14px] font-medium">{s}</span>
+                      </div>
+                      {highlight && <Sparkles className="h-3.5 w-3.5 text-primary" />}
                     </div>
-                    {highlight && <Sparkles className="h-3.5 w-3.5 text-primary" />}
-                  </div>
-                  {i < steps.length - 1 && (
-                    <div className="ml-6 h-4 w-px bg-border" />
-                  )}
-                </li>
-              );
-            })}
-          </ol>
+                    {i < steps.length - 1 && (
+                      <div className="ml-6 h-4 w-px bg-border" />
+                    )}
+                  </li>
+                );
+              })}
+            </ol>
+          </div>
         </div>
       </div>
     </section>
