@@ -665,7 +665,8 @@ function Problem() {
 
 function Solution() {
   return (
-    <section className="py-32 md:py-40">
+    <section className="relative py-32 md:py-40">
+      <BlueprintBg />
       <div className="mx-auto grid max-w-[1240px] items-center gap-16 px-6 lg:grid-cols-2 lg:gap-24 lg:px-8">
         <WorkflowDiagram />
         <div>
