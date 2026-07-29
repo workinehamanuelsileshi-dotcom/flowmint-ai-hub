@@ -458,8 +458,22 @@ function FeedCard({
   price,
   tags,
 }: (typeof FEED)[number]) {
+  // map tags → real logo slugs where available
+  const slugMap: Record<string, string> = {
+    Sales: "hubspot",
+    HubSpot: "hubspot",
+    Slack: "slack",
+    Support: "zendesk",
+    Zendesk: "zendesk",
+    Finance: "xero",
+    Xero: "xero",
+    Voice: "twilio",
+    Twilio: "twilio",
+    Ops: "shopify",
+    Shopify: "shopify",
+  };
   return (
-    <div className="group rounded-xl border border-border bg-card p-3.5 transition-all duration-200 hover:-translate-y-0.5 hover:border-foreground/20 hover:shadow-[0_10px_30px_-15px_rgba(0,0,0,0.15)]">
+    <div className="group rounded-xl border border-border bg-card p-3.5 transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-0.5 hover:border-foreground/20 hover:shadow-[0_10px_30px_-15px_rgba(0,0,0,0.15)]">
       <div className="flex items-start justify-between gap-3">
         <div className="flex items-center gap-2.5">
           <div className="flex h-7 w-7 items-center justify-center rounded-md bg-muted text-[10px] font-semibold">
@@ -479,15 +493,25 @@ function FeedCard({
       <MiniFlow />
 
       <div className="mt-2.5 flex items-center justify-between">
-        <div className="flex flex-wrap gap-1">
-          {tags.map((t) => (
-            <span
-              key={t}
-              className="rounded-full border border-border px-1.5 py-0.5 text-[10px] text-muted-foreground"
-            >
-              {t}
-            </span>
-          ))}
+        <div className="flex items-center gap-1.5">
+          {tags.slice(0, 3).map((t) =>
+            slugMap[t] ? (
+              <span
+                key={t}
+                title={t}
+                className="flex h-5 w-5 items-center justify-center rounded-md border border-border bg-background"
+              >
+                <LogoIcon slug={slugMap[t]} name={t} size={10} />
+              </span>
+            ) : (
+              <span
+                key={t}
+                className="rounded-full border border-border px-1.5 py-0.5 text-[10px] text-muted-foreground"
+              >
+                {t}
+              </span>
+            ),
+          )}
         </div>
         <div className="flex items-center gap-2 text-[11px]">
           <span className="text-muted-foreground">{hours}h saved</span>
