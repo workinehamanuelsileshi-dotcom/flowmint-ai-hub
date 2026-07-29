@@ -29,6 +29,56 @@ import forBusinesses from "../assets/for-businesses.jpg";
 import forCreators from "../assets/for-creators.jpg";
 import finalCtaBg from "../assets/final-cta-bg.jpg";
 
+/* ── Shared helpers ──────────────────────────────────────────── */
+
+/** Real brand logos via simpleicons CDN — monochrome, contextual */
+function LogoIcon({
+  slug,
+  name,
+  size = 14,
+  tint = "737373",
+  className = "",
+}: {
+  slug: string;
+  name: string;
+  size?: number;
+  tint?: string;
+  className?: string;
+}) {
+  return (
+    <img
+      src={`https://cdn.simpleicons.org/${slug}/${tint}`}
+      alt={name}
+      width={size}
+      height={size}
+      loading="lazy"
+      className={`inline-block object-contain ${className}`}
+      style={{ height: size, width: size }}
+    />
+  );
+}
+
+/** Very-soft, blurred blueprint atmosphere for section backgrounds */
+function BlueprintBg({ className = "" }: { className?: string }) {
+  return (
+    <div
+      aria-hidden
+      className={`pointer-events-none absolute inset-0 -z-10 overflow-hidden ${className}`}
+    >
+      <div
+        className="absolute inset-0 opacity-[0.06] [mask-image:radial-gradient(70%_60%_at_50%_40%,#000_10%,transparent_75%)]"
+        style={{
+          backgroundImage:
+            "linear-gradient(to right, rgba(0,0,0,1) 1px, transparent 1px), linear-gradient(to bottom, rgba(0,0,0,1) 1px, transparent 1px)",
+          backgroundSize: "56px 56px",
+        }}
+      />
+      <div className="absolute left-[10%] top-1/3 h-[380px] w-[380px] rounded-full bg-primary/10 blur-[120px]" />
+      <div className="absolute right-[8%] bottom-1/4 h-[420px] w-[420px] rounded-full bg-foreground/[0.04] blur-[140px]" />
+    </div>
+  );
+}
+
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
@@ -408,8 +458,22 @@ function FeedCard({
   price,
   tags,
 }: (typeof FEED)[number]) {
+  // map tags → real logo slugs where available
+  const slugMap: Record<string, string> = {
+    Sales: "hubspot",
+    HubSpot: "hubspot",
+    Slack: "slack",
+    Support: "zendesk",
+    Zendesk: "zendesk",
+    Finance: "xero",
+    Xero: "xero",
+    Voice: "twilio",
+    Twilio: "twilio",
+    Ops: "shopify",
+    Shopify: "shopify",
+  };
   return (
-    <div className="group rounded-xl border border-border bg-card p-3.5 transition-all duration-200 hover:-translate-y-0.5 hover:border-foreground/20 hover:shadow-[0_10px_30px_-15px_rgba(0,0,0,0.15)]">
+    <div className="group rounded-xl border border-border bg-card p-3.5 transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-0.5 hover:border-foreground/20 hover:shadow-[0_10px_30px_-15px_rgba(0,0,0,0.15)]">
       <div className="flex items-start justify-between gap-3">
         <div className="flex items-center gap-2.5">
           <div className="flex h-7 w-7 items-center justify-center rounded-md bg-muted text-[10px] font-semibold">
@@ -429,15 +493,25 @@ function FeedCard({
       <MiniFlow />
 
       <div className="mt-2.5 flex items-center justify-between">
-        <div className="flex flex-wrap gap-1">
-          {tags.map((t) => (
-            <span
-              key={t}
-              className="rounded-full border border-border px-1.5 py-0.5 text-[10px] text-muted-foreground"
-            >
-              {t}
-            </span>
-          ))}
+        <div className="flex items-center gap-1.5">
+          {tags.slice(0, 3).map((t) =>
+            slugMap[t] ? (
+              <span
+                key={t}
+                title={t}
+                className="flex h-5 w-5 items-center justify-center rounded-md border border-border bg-background"
+              >
+                <LogoIcon slug={slugMap[t]} name={t} size={10} />
+              </span>
+            ) : (
+              <span
+                key={t}
+                className="rounded-full border border-border px-1.5 py-0.5 text-[10px] text-muted-foreground"
+              >
+                {t}
+              </span>
+            ),
+          )}
         </div>
         <div className="flex items-center gap-2 text-[11px]">
           <span className="text-muted-foreground">{hours}h saved</span>
@@ -591,7 +665,8 @@ function Problem() {
 
 function Solution() {
   return (
-    <section className="py-32 md:py-40">
+    <section className="relative py-32 md:py-40">
+      <BlueprintBg />
       <div className="mx-auto grid max-w-[1240px] items-center gap-16 px-6 lg:grid-cols-2 lg:gap-24 lg:px-8">
         <WorkflowDiagram />
         <div>
@@ -631,17 +706,17 @@ function Solution() {
 
 function WorkflowDiagram() {
   const nodes = [
-    { label: "Lead form", icon: Layers },
-    { label: "AI agent", icon: Sparkles, accent: true },
-    { label: "CRM", icon: Building2 },
-    { label: "Slack", icon: MessagesSquare },
-    { label: "Calendar", icon: Bell },
-    { label: "Customer", icon: Users },
+    { label: "Typeform · Lead form", logo: "typeform", sub: "Trigger · new submission" },
+    { label: "OpenAI · Qualification agent", logo: "openai", accent: true, sub: "Score · enrich · route" },
+    { label: "HubSpot · CRM", logo: "hubspot", sub: "Create / update contact" },
+    { label: "Slack · #sales-inbound", logo: "slack", sub: "Notify account owner" },
+    { label: "Calendly · Discovery call", logo: "calendly", sub: "Auto-book based on tier" },
+    { label: "Gmail · Follow-up", logo: "gmail", sub: "Personalized sequence" },
   ];
   return (
-    <div className="relative rounded-2xl border border-border bg-card p-8 shadow-[0_20px_60px_-30px_rgba(0,0,0,0.15)]">
+    <div className="relative rounded-2xl border border-border bg-card p-8 shadow-[0_30px_80px_-40px_rgba(15,23,42,0.25),0_10px_30px_-20px_rgba(15,23,42,0.08)] ring-1 ring-black/[0.02]">
       <div className="mb-6 flex items-center justify-between text-[11px] text-muted-foreground">
-        <span className="font-mono">workflow.flowmint</span>
+        <span className="font-mono">inbound-lead-agent.flowmint</span>
         <span className="flex items-center gap-1.5">
           <span className="h-1.5 w-1.5 rounded-full bg-[color:var(--color-success)] animate-pulse-dot" />
           Live
@@ -651,26 +726,23 @@ function WorkflowDiagram() {
         {nodes.map((n, i) => (
           <li key={n.label} className="flex items-center gap-4">
             <div
-              className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border transition-all ${
+              className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border transition-all duration-300 ${
                 n.accent
-                  ? "border-primary bg-primary/5 text-primary"
-                  : "border-border bg-background text-foreground"
+                  ? "border-primary bg-primary/5 shadow-[0_0_0_4px_rgba(37,99,235,0.06)]"
+                  : "border-border bg-background"
               }`}
             >
-              <n.icon className="h-4.5 w-4.5" strokeWidth={1.5} />
+              <LogoIcon slug={n.logo} name={n.label} size={18} tint={n.accent ? "2563EB" : "111111"} />
             </div>
             <div className="flex-1 rounded-xl border border-border px-4 py-2.5">
               <p className="text-[13.5px] font-medium">{n.label}</p>
-              <p className="text-[11.5px] text-muted-foreground">
-                {i === 0 && "Trigger · new submission"}
-                {i === 1 && "Qualify · enrich · route"}
-                {i === 2 && "Create/update contact"}
-                {i === 3 && "Notify sales channel"}
-                {i === 4 && "Book discovery call"}
-                {i === 5 && "Follow-up automation"}
-              </p>
+              <p className="text-[11.5px] text-muted-foreground">{n.sub}</p>
             </div>
-            {i < nodes.length - 1 && null}
+            {i === 1 && (
+              <span className="hidden shrink-0 rounded-full border border-primary/20 bg-primary/5 px-2 py-0.5 text-[10px] font-medium text-primary md:inline-flex">
+                AI
+              </span>
+            )}
           </li>
         ))}
       </ul>
@@ -761,15 +833,16 @@ function BusinessDNA() {
         </div>
 
         <div className="space-y-4">
-          <div className="overflow-hidden rounded-2xl border border-border bg-card">
+          <div className="group relative overflow-hidden rounded-2xl border border-border bg-card shadow-[0_30px_80px_-40px_rgba(15,23,42,0.25)] ring-1 ring-black/[0.02]">
             <img
               src={dnaWorkspace}
               alt="Workspace with laptop showing analytics dashboard and hand-drawn workflow diagrams in a notebook"
               loading="lazy"
               width={1280}
               height={960}
-              className="h-56 w-full object-cover md:h-64"
+              className="h-56 w-full object-cover transition-transform duration-[600ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.03] md:h-64"
             />
+            <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-card/50 via-transparent to-transparent" />
           </div>
           <div className="rounded-2xl border border-border bg-card p-8">
             <ol className="space-y-2">
@@ -910,48 +983,69 @@ function Categories() {
 function FeaturedAutomations() {
   const items = [
     {
+      kind: "sales" as const,
       title: "Outbound SDR agent",
       problem: "Fill the top of funnel without hiring.",
       roi: "3.2x",
       hours: 180,
-      platforms: ["HubSpot", "Gmail", "OpenAI"],
+      platforms: [
+        { label: "HubSpot", slug: "hubspot" },
+        { label: "Gmail", slug: "gmail" },
+        { label: "OpenAI", slug: "openai" },
+      ],
       creator: "Northbeam",
       rating: 4.9,
       price: "$249",
     },
     {
+      kind: "support" as const,
       title: "AI support triage",
       problem: "Route and resolve L1 tickets automatically.",
       roi: "41%",
       hours: 220,
-      platforms: ["Zendesk", "Slack", "Claude"],
+      platforms: [
+        { label: "Zendesk", slug: "zendesk" },
+        { label: "Slack", slug: "slack" },
+        { label: "Claude", slug: "anthropic" },
+      ],
       creator: "Fielded",
       rating: 4.8,
       price: "$199",
     },
     {
+      kind: "finance" as const,
       title: "Invoice reconciliation",
       problem: "Close books faster with fewer errors.",
       roi: "2.4x",
       hours: 96,
-      platforms: ["Xero", "Gmail", "n8n"],
+      platforms: [
+        { label: "Xero", slug: "xero" },
+        { label: "Gmail", slug: "gmail" },
+        { label: "n8n", slug: "n8n" },
+      ],
       creator: "Ledger Labs",
       rating: 5.0,
       price: "$179",
     },
     {
+      kind: "voice" as const,
       title: "Voice AI receptionist",
       problem: "Answer, qualify and book — 24/7.",
       roi: "58%",
       hours: 320,
-      platforms: ["Twilio", "Calendar", "Gemini"],
+      platforms: [
+        { label: "Twilio", slug: "twilio" },
+        { label: "Calendly", slug: "calendly" },
+        { label: "Gemini", slug: "googlegemini" },
+      ],
       creator: "Halo Voice",
       rating: 4.7,
       price: "$99",
     },
   ];
   return (
-    <section className="border-y border-border py-32 md:py-40">
+    <section className="relative border-y border-border py-32 md:py-40">
+      <BlueprintBg />
       <div className="mx-auto max-w-[1240px] px-6 lg:px-8">
         <div className="flex items-end justify-between gap-8">
           <div>
@@ -975,56 +1069,65 @@ function FeaturedAutomations() {
             {items.map((it) => (
               <article
                 key={it.title}
-                className="group flex flex-col rounded-2xl border border-border bg-card p-6 transition-all duration-300 hover:-translate-y-1 hover:border-foreground/20 hover:shadow-[0_20px_50px_-25px_rgba(0,0,0,0.15)]"
+                className="group flex flex-col overflow-hidden rounded-2xl border border-border bg-card transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-1 hover:border-foreground/20 hover:shadow-[0_30px_60px_-30px_rgba(15,23,42,0.18)]"
               >
-                <MiniFlow />
-                <h3 className="mt-5 text-[17px] font-medium tracking-tight">{it.title}</h3>
-                <p className="mt-1.5 text-[13.5px] leading-[1.5] text-muted-foreground">
-                  {it.problem}
-                </p>
+                <div className="relative border-b border-border bg-muted/40 p-3">
+                  <AutomationPreview kind={it.kind} />
+                  <div className="pointer-events-none absolute inset-x-0 bottom-0 h-6 bg-gradient-to-t from-card/60 to-transparent" />
+                </div>
+                <div className="flex flex-1 flex-col p-6">
+                  <h3 className="text-[17px] font-medium tracking-tight">{it.title}</h3>
+                  <p className="mt-1.5 text-[13.5px] leading-[1.5] text-muted-foreground">
+                    {it.problem}
+                  </p>
 
-                <dl className="mt-5 grid grid-cols-2 gap-3 border-y border-border py-4 text-[12px]">
-                  <div>
-                    <dt className="text-muted-foreground">ROI</dt>
-                    <dd className="mt-0.5 font-medium">{it.roi}</dd>
-                  </div>
-                  <div>
-                    <dt className="text-muted-foreground">Hours saved</dt>
-                    <dd className="mt-0.5 font-medium">{it.hours}h</dd>
-                  </div>
-                </dl>
+                  <dl className="mt-5 grid grid-cols-2 gap-3 border-y border-border py-4 text-[12px]">
+                    <div>
+                      <dt className="text-muted-foreground">ROI</dt>
+                      <dd className="mt-0.5 font-medium">{it.roi}</dd>
+                    </div>
+                    <div>
+                      <dt className="text-muted-foreground">Hours saved</dt>
+                      <dd className="mt-0.5 font-medium">{it.hours}h</dd>
+                    </div>
+                  </dl>
 
-                <div className="mt-4 flex flex-wrap gap-1.5">
-                  {it.platforms.map((p) => (
-                    <span
-                      key={p}
-                      className="rounded-md border border-border px-1.5 py-0.5 text-[11px] text-muted-foreground"
+                  <div className="mt-4 flex flex-wrap items-center gap-1.5">
+                    {it.platforms.map((p) => (
+                      <span
+                        key={p.label}
+                        title={p.label}
+                        className="flex h-6 items-center gap-1 rounded-md border border-border bg-background px-1.5 text-[11px] text-muted-foreground"
+                      >
+                        <LogoIcon slug={p.slug} name={p.label} size={10} />
+                        {p.label}
+                      </span>
+                    ))}
+                  </div>
+
+                  <div className="mt-5 flex items-center justify-between text-[12px]">
+                    <div className="flex items-center gap-2">
+                      <div className="flex h-5 w-5 items-center justify-center rounded-full bg-muted text-[9px] font-semibold">
+                        {it.creator.slice(0, 2)}
+                      </div>
+                      <span>{it.creator}</span>
+                    </div>
+                    <div className="flex items-center gap-1 text-muted-foreground">
+                      <Star className="h-3 w-3 fill-foreground text-foreground" />
+                      {it.rating}
+                    </div>
+                  </div>
+
+                  <div className="mt-5 flex items-center justify-between">
+                    <span className="text-[15px] font-medium">{it.price}</span>
+                    <a
+                      href="#"
+                      className="inline-flex items-center gap-1 text-[13px] font-medium text-primary transition-all duration-200 hover:gap-2 hover:text-[color:var(--hover-blue)]"
                     >
-                      {p}
-                    </span>
-                  ))}
-                </div>
-
-                <div className="mt-5 flex items-center justify-between text-[12px]">
-                  <div className="flex items-center gap-2">
-                    <div className="h-5 w-5 rounded-full bg-muted" />
-                    <span>{it.creator}</span>
+                      View automation
+                      <ArrowRight className="h-3.5 w-3.5" />
+                    </a>
                   </div>
-                  <div className="flex items-center gap-1 text-muted-foreground">
-                    <Star className="h-3 w-3 fill-foreground text-foreground" />
-                    {it.rating}
-                  </div>
-                </div>
-
-                <div className="mt-5 flex items-center justify-between">
-                  <span className="text-[15px] font-medium">{it.price}</span>
-                  <a
-                    href="#"
-                    className="inline-flex items-center gap-1 text-[13px] font-medium text-primary transition-colors hover:text-[color:var(--hover-blue)]"
-                  >
-                    View automation
-                    <ArrowRight className="h-3.5 w-3.5" />
-                  </a>
                 </div>
               </article>
             ))}
@@ -1032,6 +1135,140 @@ function FeaturedAutomations() {
         </div>
       </div>
     </section>
+  );
+}
+
+/* Contextual per-automation mini "product screens" — no generic visuals. */
+function AutomationPreview({ kind }: { kind: "sales" | "support" | "finance" | "voice" }) {
+  if (kind === "sales") {
+    // CRM pipeline preview
+    const stages = [
+      { label: "New", count: 34, tone: "bg-muted" },
+      { label: "Qualified", count: 18, tone: "bg-primary/10 ring-1 ring-primary/20" },
+      { label: "Booked", count: 7, tone: "bg-muted" },
+    ];
+    return (
+      <div className="rounded-lg border border-border bg-background p-3">
+        <div className="flex items-center justify-between text-[10px] text-muted-foreground">
+          <span className="flex items-center gap-1.5">
+            <LogoIcon slug="hubspot" name="HubSpot" size={11} />
+            Inbound pipeline
+          </span>
+          <span className="font-mono">+12 today</span>
+        </div>
+        <div className="mt-2.5 grid grid-cols-3 gap-1.5">
+          {stages.map((s) => (
+            <div key={s.label} className={`rounded-md px-2 py-2 text-[10px] ${s.tone}`}>
+              <p className="text-muted-foreground">{s.label}</p>
+              <p className="mt-1 text-[14px] font-medium leading-none text-foreground">{s.count}</p>
+            </div>
+          ))}
+        </div>
+        <div className="mt-2 flex items-center gap-1.5 rounded-md border border-border bg-card px-2 py-1.5 text-[10px]">
+          <LogoIcon slug="openai" name="OpenAI" size={10} />
+          <span className="text-muted-foreground">Scored lead ·</span>
+          <span className="font-medium">acme.io → 92</span>
+        </div>
+      </div>
+    );
+  }
+  if (kind === "support") {
+    // Ticket conversation preview
+    return (
+      <div className="rounded-lg border border-border bg-background p-3">
+        <div className="flex items-center justify-between text-[10px] text-muted-foreground">
+          <span className="flex items-center gap-1.5">
+            <LogoIcon slug="zendesk" name="Zendesk" size={11} />
+            #4821 · Billing question
+          </span>
+          <span className="rounded-full bg-[color:var(--color-success)]/15 px-1.5 py-0.5 text-[9px] font-medium text-[color:var(--color-success)]">
+            resolved
+          </span>
+        </div>
+        <div className="mt-2.5 space-y-1.5">
+          <div className="max-w-[85%] rounded-lg rounded-tl-sm bg-muted px-2 py-1.5 text-[10.5px]">
+            Where can I download my invoice?
+          </div>
+          <div className="ml-auto flex max-w-[85%] items-start gap-1.5">
+            <div className="rounded-lg rounded-tr-sm bg-primary/10 px-2 py-1.5 text-[10.5px] text-foreground">
+              I've emailed your March invoice and tagged the ticket #billing.
+            </div>
+          </div>
+        </div>
+        <div className="mt-2 flex items-center justify-between text-[10px] text-muted-foreground">
+          <span className="flex items-center gap-1">
+            <LogoIcon slug="anthropic" name="Claude" size={10} /> Claude · L1 agent
+          </span>
+          <span className="flex items-center gap-1">
+            <LogoIcon slug="slack" name="Slack" size={10} /> routed #cx
+          </span>
+        </div>
+      </div>
+    );
+  }
+  if (kind === "finance") {
+    // Invoice approval preview
+    const rows = [
+      { v: "AWS", a: "$1,284.10", ok: true },
+      { v: "Figma", a: "$180.00", ok: true },
+      { v: "Notion", a: "$96.00", ok: false },
+    ];
+    return (
+      <div className="rounded-lg border border-border bg-background p-3">
+        <div className="flex items-center justify-between text-[10px] text-muted-foreground">
+          <span className="flex items-center gap-1.5">
+            <LogoIcon slug="xero" name="Xero" size={11} />
+            March reconciliation
+          </span>
+          <span className="font-mono">3 · matched</span>
+        </div>
+        <ul className="mt-2 divide-y divide-border rounded-md border border-border">
+          {rows.map((r) => (
+            <li key={r.v} className="flex items-center justify-between px-2 py-1.5 text-[10.5px]">
+              <span className="font-medium">{r.v}</span>
+              <span className="flex items-center gap-1.5">
+                <span className="text-muted-foreground">{r.a}</span>
+                <span
+                  className={`h-1.5 w-1.5 rounded-full ${r.ok ? "bg-[color:var(--color-success)]" : "bg-primary"}`}
+                />
+              </span>
+            </li>
+          ))}
+        </ul>
+        <div className="mt-2 flex items-center gap-1.5 text-[10px] text-muted-foreground">
+          <LogoIcon slug="n8n" name="n8n" size={10} /> categorized → GL 6400
+        </div>
+      </div>
+    );
+  }
+  // voice
+  return (
+    <div className="rounded-lg border border-border bg-background p-3">
+      <div className="flex items-center justify-between text-[10px] text-muted-foreground">
+        <span className="flex items-center gap-1.5">
+          <LogoIcon slug="twilio" name="Twilio" size={11} />
+          Incoming call · +1 (415) 555
+        </span>
+        <span className="flex items-center gap-1 text-[color:var(--color-success)]">
+          <span className="h-1.5 w-1.5 animate-pulse-dot rounded-full bg-[color:var(--color-success)]" />
+          live
+        </span>
+      </div>
+      <div className="mt-2 flex items-end gap-[2px] rounded-md border border-border bg-muted/50 px-2 py-2">
+        {[8, 14, 20, 12, 22, 16, 26, 18, 10, 22, 14, 20, 12, 24, 16].map((h, i) => (
+          <span
+            key={i}
+            className="w-1 rounded-full bg-primary/70"
+            style={{ height: h }}
+          />
+        ))}
+      </div>
+      <div className="mt-2 flex items-center gap-1.5 rounded-md border border-border bg-card px-2 py-1.5 text-[10px]">
+        <LogoIcon slug="calendly" name="Calendly" size={10} />
+        <span className="text-muted-foreground">Booked</span>
+        <span className="font-medium">Tue 2:30 PM · Discovery</span>
+      </div>
+    </div>
   );
 }
 
@@ -1133,7 +1370,7 @@ function ForBusinessesCreators() {
         ].map((c) => (
           <article
             key={c.eyebrow}
-            className="flex flex-col overflow-hidden rounded-2xl border border-border bg-card"
+            className="group flex flex-col overflow-hidden rounded-2xl border border-border bg-card shadow-[0_30px_80px_-40px_rgba(15,23,42,0.18)] ring-1 ring-black/[0.02] transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-1 hover:shadow-[0_40px_90px_-30px_rgba(15,23,42,0.22)]"
           >
             <div className="relative h-56 w-full overflow-hidden md:h-64">
               <img
@@ -1142,9 +1379,10 @@ function ForBusinessesCreators() {
                 loading="lazy"
                 width={1280}
                 height={900}
-                className="h-full w-full object-cover transition-transform duration-500 hover:scale-[1.02]"
+                className="h-full w-full object-cover transition-transform duration-[700ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.04]"
               />
-              <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-card/70 via-transparent to-transparent" />
+              <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-card via-card/10 to-transparent" />
+              <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-transparent via-transparent to-primary/5" />
             </div>
             <div className="flex flex-1 flex-col p-10">
               <p className="text-[11px] font-medium uppercase tracking-[0.18em] text-muted-foreground">
