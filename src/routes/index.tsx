@@ -29,6 +29,56 @@ import forBusinesses from "../assets/for-businesses.jpg";
 import forCreators from "../assets/for-creators.jpg";
 import finalCtaBg from "../assets/final-cta-bg.jpg";
 
+/* ── Shared helpers ──────────────────────────────────────────── */
+
+/** Real brand logos via simpleicons CDN — monochrome, contextual */
+function LogoIcon({
+  slug,
+  name,
+  size = 14,
+  tint = "737373",
+  className = "",
+}: {
+  slug: string;
+  name: string;
+  size?: number;
+  tint?: string;
+  className?: string;
+}) {
+  return (
+    <img
+      src={`https://cdn.simpleicons.org/${slug}/${tint}`}
+      alt={name}
+      width={size}
+      height={size}
+      loading="lazy"
+      className={`inline-block object-contain ${className}`}
+      style={{ height: size, width: size }}
+    />
+  );
+}
+
+/** Very-soft, blurred blueprint atmosphere for section backgrounds */
+function BlueprintBg({ className = "" }: { className?: string }) {
+  return (
+    <div
+      aria-hidden
+      className={`pointer-events-none absolute inset-0 -z-10 overflow-hidden ${className}`}
+    >
+      <div
+        className="absolute inset-0 opacity-[0.06] [mask-image:radial-gradient(70%_60%_at_50%_40%,#000_10%,transparent_75%)]"
+        style={{
+          backgroundImage:
+            "linear-gradient(to right, rgba(0,0,0,1) 1px, transparent 1px), linear-gradient(to bottom, rgba(0,0,0,1) 1px, transparent 1px)",
+          backgroundSize: "56px 56px",
+        }}
+      />
+      <div className="absolute left-[10%] top-1/3 h-[380px] w-[380px] rounded-full bg-primary/10 blur-[120px]" />
+      <div className="absolute right-[8%] bottom-1/4 h-[420px] w-[420px] rounded-full bg-foreground/[0.04] blur-[140px]" />
+    </div>
+  );
+}
+
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
