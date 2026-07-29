@@ -981,48 +981,69 @@ function Categories() {
 function FeaturedAutomations() {
   const items = [
     {
+      kind: "sales" as const,
       title: "Outbound SDR agent",
       problem: "Fill the top of funnel without hiring.",
       roi: "3.2x",
       hours: 180,
-      platforms: ["HubSpot", "Gmail", "OpenAI"],
+      platforms: [
+        { label: "HubSpot", slug: "hubspot" },
+        { label: "Gmail", slug: "gmail" },
+        { label: "OpenAI", slug: "openai" },
+      ],
       creator: "Northbeam",
       rating: 4.9,
       price: "$249",
     },
     {
+      kind: "support" as const,
       title: "AI support triage",
       problem: "Route and resolve L1 tickets automatically.",
       roi: "41%",
       hours: 220,
-      platforms: ["Zendesk", "Slack", "Claude"],
+      platforms: [
+        { label: "Zendesk", slug: "zendesk" },
+        { label: "Slack", slug: "slack" },
+        { label: "Claude", slug: "anthropic" },
+      ],
       creator: "Fielded",
       rating: 4.8,
       price: "$199",
     },
     {
+      kind: "finance" as const,
       title: "Invoice reconciliation",
       problem: "Close books faster with fewer errors.",
       roi: "2.4x",
       hours: 96,
-      platforms: ["Xero", "Gmail", "n8n"],
+      platforms: [
+        { label: "Xero", slug: "xero" },
+        { label: "Gmail", slug: "gmail" },
+        { label: "n8n", slug: "n8n" },
+      ],
       creator: "Ledger Labs",
       rating: 5.0,
       price: "$179",
     },
     {
+      kind: "voice" as const,
       title: "Voice AI receptionist",
       problem: "Answer, qualify and book — 24/7.",
       roi: "58%",
       hours: 320,
-      platforms: ["Twilio", "Calendar", "Gemini"],
+      platforms: [
+        { label: "Twilio", slug: "twilio" },
+        { label: "Calendly", slug: "calendly" },
+        { label: "Gemini", slug: "googlegemini" },
+      ],
       creator: "Halo Voice",
       rating: 4.7,
       price: "$99",
     },
   ];
   return (
-    <section className="border-y border-border py-32 md:py-40">
+    <section className="relative border-y border-border py-32 md:py-40">
+      <BlueprintBg />
       <div className="mx-auto max-w-[1240px] px-6 lg:px-8">
         <div className="flex items-end justify-between gap-8">
           <div>
@@ -1046,56 +1067,65 @@ function FeaturedAutomations() {
             {items.map((it) => (
               <article
                 key={it.title}
-                className="group flex flex-col rounded-2xl border border-border bg-card p-6 transition-all duration-300 hover:-translate-y-1 hover:border-foreground/20 hover:shadow-[0_20px_50px_-25px_rgba(0,0,0,0.15)]"
+                className="group flex flex-col overflow-hidden rounded-2xl border border-border bg-card transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-1 hover:border-foreground/20 hover:shadow-[0_30px_60px_-30px_rgba(15,23,42,0.18)]"
               >
-                <MiniFlow />
-                <h3 className="mt-5 text-[17px] font-medium tracking-tight">{it.title}</h3>
-                <p className="mt-1.5 text-[13.5px] leading-[1.5] text-muted-foreground">
-                  {it.problem}
-                </p>
+                <div className="relative border-b border-border bg-muted/40 p-3">
+                  <AutomationPreview kind={it.kind} />
+                  <div className="pointer-events-none absolute inset-x-0 bottom-0 h-6 bg-gradient-to-t from-card/60 to-transparent" />
+                </div>
+                <div className="flex flex-1 flex-col p-6">
+                  <h3 className="text-[17px] font-medium tracking-tight">{it.title}</h3>
+                  <p className="mt-1.5 text-[13.5px] leading-[1.5] text-muted-foreground">
+                    {it.problem}
+                  </p>
 
-                <dl className="mt-5 grid grid-cols-2 gap-3 border-y border-border py-4 text-[12px]">
-                  <div>
-                    <dt className="text-muted-foreground">ROI</dt>
-                    <dd className="mt-0.5 font-medium">{it.roi}</dd>
-                  </div>
-                  <div>
-                    <dt className="text-muted-foreground">Hours saved</dt>
-                    <dd className="mt-0.5 font-medium">{it.hours}h</dd>
-                  </div>
-                </dl>
+                  <dl className="mt-5 grid grid-cols-2 gap-3 border-y border-border py-4 text-[12px]">
+                    <div>
+                      <dt className="text-muted-foreground">ROI</dt>
+                      <dd className="mt-0.5 font-medium">{it.roi}</dd>
+                    </div>
+                    <div>
+                      <dt className="text-muted-foreground">Hours saved</dt>
+                      <dd className="mt-0.5 font-medium">{it.hours}h</dd>
+                    </div>
+                  </dl>
 
-                <div className="mt-4 flex flex-wrap gap-1.5">
-                  {it.platforms.map((p) => (
-                    <span
-                      key={p}
-                      className="rounded-md border border-border px-1.5 py-0.5 text-[11px] text-muted-foreground"
+                  <div className="mt-4 flex flex-wrap items-center gap-1.5">
+                    {it.platforms.map((p) => (
+                      <span
+                        key={p.label}
+                        title={p.label}
+                        className="flex h-6 items-center gap-1 rounded-md border border-border bg-background px-1.5 text-[11px] text-muted-foreground"
+                      >
+                        <LogoIcon slug={p.slug} name={p.label} size={10} />
+                        {p.label}
+                      </span>
+                    ))}
+                  </div>
+
+                  <div className="mt-5 flex items-center justify-between text-[12px]">
+                    <div className="flex items-center gap-2">
+                      <div className="flex h-5 w-5 items-center justify-center rounded-full bg-muted text-[9px] font-semibold">
+                        {it.creator.slice(0, 2)}
+                      </div>
+                      <span>{it.creator}</span>
+                    </div>
+                    <div className="flex items-center gap-1 text-muted-foreground">
+                      <Star className="h-3 w-3 fill-foreground text-foreground" />
+                      {it.rating}
+                    </div>
+                  </div>
+
+                  <div className="mt-5 flex items-center justify-between">
+                    <span className="text-[15px] font-medium">{it.price}</span>
+                    <a
+                      href="#"
+                      className="inline-flex items-center gap-1 text-[13px] font-medium text-primary transition-all duration-200 hover:gap-2 hover:text-[color:var(--hover-blue)]"
                     >
-                      {p}
-                    </span>
-                  ))}
-                </div>
-
-                <div className="mt-5 flex items-center justify-between text-[12px]">
-                  <div className="flex items-center gap-2">
-                    <div className="h-5 w-5 rounded-full bg-muted" />
-                    <span>{it.creator}</span>
+                      View automation
+                      <ArrowRight className="h-3.5 w-3.5" />
+                    </a>
                   </div>
-                  <div className="flex items-center gap-1 text-muted-foreground">
-                    <Star className="h-3 w-3 fill-foreground text-foreground" />
-                    {it.rating}
-                  </div>
-                </div>
-
-                <div className="mt-5 flex items-center justify-between">
-                  <span className="text-[15px] font-medium">{it.price}</span>
-                  <a
-                    href="#"
-                    className="inline-flex items-center gap-1 text-[13px] font-medium text-primary transition-colors hover:text-[color:var(--hover-blue)]"
-                  >
-                    View automation
-                    <ArrowRight className="h-3.5 w-3.5" />
-                  </a>
                 </div>
               </article>
             ))}
@@ -1103,6 +1133,140 @@ function FeaturedAutomations() {
         </div>
       </div>
     </section>
+  );
+}
+
+/* Contextual per-automation mini "product screens" — no generic visuals. */
+function AutomationPreview({ kind }: { kind: "sales" | "support" | "finance" | "voice" }) {
+  if (kind === "sales") {
+    // CRM pipeline preview
+    const stages = [
+      { label: "New", count: 34, tone: "bg-muted" },
+      { label: "Qualified", count: 18, tone: "bg-primary/10 ring-1 ring-primary/20" },
+      { label: "Booked", count: 7, tone: "bg-muted" },
+    ];
+    return (
+      <div className="rounded-lg border border-border bg-background p-3">
+        <div className="flex items-center justify-between text-[10px] text-muted-foreground">
+          <span className="flex items-center gap-1.5">
+            <LogoIcon slug="hubspot" name="HubSpot" size={11} />
+            Inbound pipeline
+          </span>
+          <span className="font-mono">+12 today</span>
+        </div>
+        <div className="mt-2.5 grid grid-cols-3 gap-1.5">
+          {stages.map((s) => (
+            <div key={s.label} className={`rounded-md px-2 py-2 text-[10px] ${s.tone}`}>
+              <p className="text-muted-foreground">{s.label}</p>
+              <p className="mt-1 text-[14px] font-medium leading-none text-foreground">{s.count}</p>
+            </div>
+          ))}
+        </div>
+        <div className="mt-2 flex items-center gap-1.5 rounded-md border border-border bg-card px-2 py-1.5 text-[10px]">
+          <LogoIcon slug="openai" name="OpenAI" size={10} />
+          <span className="text-muted-foreground">Scored lead ·</span>
+          <span className="font-medium">acme.io → 92</span>
+        </div>
+      </div>
+    );
+  }
+  if (kind === "support") {
+    // Ticket conversation preview
+    return (
+      <div className="rounded-lg border border-border bg-background p-3">
+        <div className="flex items-center justify-between text-[10px] text-muted-foreground">
+          <span className="flex items-center gap-1.5">
+            <LogoIcon slug="zendesk" name="Zendesk" size={11} />
+            #4821 · Billing question
+          </span>
+          <span className="rounded-full bg-[color:var(--color-success)]/15 px-1.5 py-0.5 text-[9px] font-medium text-[color:var(--color-success)]">
+            resolved
+          </span>
+        </div>
+        <div className="mt-2.5 space-y-1.5">
+          <div className="max-w-[85%] rounded-lg rounded-tl-sm bg-muted px-2 py-1.5 text-[10.5px]">
+            Where can I download my invoice?
+          </div>
+          <div className="ml-auto flex max-w-[85%] items-start gap-1.5">
+            <div className="rounded-lg rounded-tr-sm bg-primary/10 px-2 py-1.5 text-[10.5px] text-foreground">
+              I've emailed your March invoice and tagged the ticket #billing.
+            </div>
+          </div>
+        </div>
+        <div className="mt-2 flex items-center justify-between text-[10px] text-muted-foreground">
+          <span className="flex items-center gap-1">
+            <LogoIcon slug="anthropic" name="Claude" size={10} /> Claude · L1 agent
+          </span>
+          <span className="flex items-center gap-1">
+            <LogoIcon slug="slack" name="Slack" size={10} /> routed #cx
+          </span>
+        </div>
+      </div>
+    );
+  }
+  if (kind === "finance") {
+    // Invoice approval preview
+    const rows = [
+      { v: "AWS", a: "$1,284.10", ok: true },
+      { v: "Figma", a: "$180.00", ok: true },
+      { v: "Notion", a: "$96.00", ok: false },
+    ];
+    return (
+      <div className="rounded-lg border border-border bg-background p-3">
+        <div className="flex items-center justify-between text-[10px] text-muted-foreground">
+          <span className="flex items-center gap-1.5">
+            <LogoIcon slug="xero" name="Xero" size={11} />
+            March reconciliation
+          </span>
+          <span className="font-mono">3 · matched</span>
+        </div>
+        <ul className="mt-2 divide-y divide-border rounded-md border border-border">
+          {rows.map((r) => (
+            <li key={r.v} className="flex items-center justify-between px-2 py-1.5 text-[10.5px]">
+              <span className="font-medium">{r.v}</span>
+              <span className="flex items-center gap-1.5">
+                <span className="text-muted-foreground">{r.a}</span>
+                <span
+                  className={`h-1.5 w-1.5 rounded-full ${r.ok ? "bg-[color:var(--color-success)]" : "bg-primary"}`}
+                />
+              </span>
+            </li>
+          ))}
+        </ul>
+        <div className="mt-2 flex items-center gap-1.5 text-[10px] text-muted-foreground">
+          <LogoIcon slug="n8n" name="n8n" size={10} /> categorized → GL 6400
+        </div>
+      </div>
+    );
+  }
+  // voice
+  return (
+    <div className="rounded-lg border border-border bg-background p-3">
+      <div className="flex items-center justify-between text-[10px] text-muted-foreground">
+        <span className="flex items-center gap-1.5">
+          <LogoIcon slug="twilio" name="Twilio" size={11} />
+          Incoming call · +1 (415) 555
+        </span>
+        <span className="flex items-center gap-1 text-[color:var(--color-success)]">
+          <span className="h-1.5 w-1.5 animate-pulse-dot rounded-full bg-[color:var(--color-success)]" />
+          live
+        </span>
+      </div>
+      <div className="mt-2 flex items-end gap-[2px] rounded-md border border-border bg-muted/50 px-2 py-2">
+        {[8, 14, 20, 12, 22, 16, 26, 18, 10, 22, 14, 20, 12, 24, 16].map((h, i) => (
+          <span
+            key={i}
+            className="w-1 rounded-full bg-primary/70"
+            style={{ height: h }}
+          />
+        ))}
+      </div>
+      <div className="mt-2 flex items-center gap-1.5 rounded-md border border-border bg-card px-2 py-1.5 text-[10px]">
+        <LogoIcon slug="calendly" name="Calendly" size={10} />
+        <span className="text-muted-foreground">Booked</span>
+        <span className="font-medium">Tue 2:30 PM · Discovery</span>
+      </div>
+    </div>
   );
 }
 
