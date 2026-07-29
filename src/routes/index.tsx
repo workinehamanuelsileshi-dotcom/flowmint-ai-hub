@@ -705,17 +705,17 @@ function Solution() {
 
 function WorkflowDiagram() {
   const nodes = [
-    { label: "Lead form", icon: Layers },
-    { label: "AI agent", icon: Sparkles, accent: true },
-    { label: "CRM", icon: Building2 },
-    { label: "Slack", icon: MessagesSquare },
-    { label: "Calendar", icon: Bell },
-    { label: "Customer", icon: Users },
+    { label: "Typeform · Lead form", logo: "typeform", sub: "Trigger · new submission" },
+    { label: "OpenAI · Qualification agent", logo: "openai", accent: true, sub: "Score · enrich · route" },
+    { label: "HubSpot · CRM", logo: "hubspot", sub: "Create / update contact" },
+    { label: "Slack · #sales-inbound", logo: "slack", sub: "Notify account owner" },
+    { label: "Calendly · Discovery call", logo: "calendly", sub: "Auto-book based on tier" },
+    { label: "Gmail · Follow-up", logo: "gmail", sub: "Personalized sequence" },
   ];
   return (
-    <div className="relative rounded-2xl border border-border bg-card p-8 shadow-[0_20px_60px_-30px_rgba(0,0,0,0.15)]">
+    <div className="relative rounded-2xl border border-border bg-card p-8 shadow-[0_30px_80px_-40px_rgba(15,23,42,0.25),0_10px_30px_-20px_rgba(15,23,42,0.08)] ring-1 ring-black/[0.02]">
       <div className="mb-6 flex items-center justify-between text-[11px] text-muted-foreground">
-        <span className="font-mono">workflow.flowmint</span>
+        <span className="font-mono">inbound-lead-agent.flowmint</span>
         <span className="flex items-center gap-1.5">
           <span className="h-1.5 w-1.5 rounded-full bg-[color:var(--color-success)] animate-pulse-dot" />
           Live
@@ -725,26 +725,23 @@ function WorkflowDiagram() {
         {nodes.map((n, i) => (
           <li key={n.label} className="flex items-center gap-4">
             <div
-              className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border transition-all ${
+              className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border transition-all duration-300 ${
                 n.accent
-                  ? "border-primary bg-primary/5 text-primary"
-                  : "border-border bg-background text-foreground"
+                  ? "border-primary bg-primary/5 shadow-[0_0_0_4px_rgba(37,99,235,0.06)]"
+                  : "border-border bg-background"
               }`}
             >
-              <n.icon className="h-4.5 w-4.5" strokeWidth={1.5} />
+              <LogoIcon slug={n.logo} name={n.label} size={18} tint={n.accent ? "2563EB" : "111111"} />
             </div>
             <div className="flex-1 rounded-xl border border-border px-4 py-2.5">
               <p className="text-[13.5px] font-medium">{n.label}</p>
-              <p className="text-[11.5px] text-muted-foreground">
-                {i === 0 && "Trigger · new submission"}
-                {i === 1 && "Qualify · enrich · route"}
-                {i === 2 && "Create/update contact"}
-                {i === 3 && "Notify sales channel"}
-                {i === 4 && "Book discovery call"}
-                {i === 5 && "Follow-up automation"}
-              </p>
+              <p className="text-[11.5px] text-muted-foreground">{n.sub}</p>
             </div>
-            {i < nodes.length - 1 && null}
+            {i === 1 && (
+              <span className="hidden shrink-0 rounded-full border border-primary/20 bg-primary/5 px-2 py-0.5 text-[10px] font-medium text-primary md:inline-flex">
+                AI
+              </span>
+            )}
           </li>
         ))}
       </ul>
