@@ -1035,6 +1035,13 @@ function Categories() {
 
 /* ── Featured automations ────────────────────────────────────── */
 
+const COVER_BY_KIND: Record<"sales" | "support" | "finance" | "voice", string> = {
+  sales: cardSales,
+  support: cardSupport,
+  finance: cardFinance,
+  voice: cardVoice,
+};
+
 function FeaturedAutomations() {
   const items = [
     {
