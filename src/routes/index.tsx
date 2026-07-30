@@ -50,6 +50,18 @@ function LogoIcon({
   tint?: string;
   className?: string;
 }) {
+  const [failed, setFailed] = useState(false);
+  if (failed) {
+    return (
+      <span
+        aria-label={name}
+        className={`inline-flex items-center justify-center font-semibold uppercase text-muted-foreground ${className}`}
+        style={{ height: size, width: size, fontSize: Math.max(7, size * 0.62) }}
+      >
+        {name.charAt(0)}
+      </span>
+    );
+  }
   return (
     <img
       src={`https://cdn.simpleicons.org/${slug}/${tint}`}
@@ -57,6 +69,7 @@ function LogoIcon({
       width={size}
       height={size}
       loading="lazy"
+      onError={() => setFailed(true)}
       className={`inline-block object-contain ${className}`}
       style={{ height: size, width: size }}
     />
