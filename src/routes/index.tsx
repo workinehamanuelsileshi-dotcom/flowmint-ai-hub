@@ -415,6 +415,8 @@ const FEED = [
     hours: 42,
     price: "$149",
     tags: ["Sales", "HubSpot", "Slack"],
+    cover: cardSales,
+    flow: ["typeform", "openai", "hubspot", "slack"],
   },
   {
     title: "AI ticket triage & routing",
@@ -424,6 +426,8 @@ const FEED = [
     hours: 120,
     price: "$249",
     tags: ["Support", "Zendesk"],
+    cover: cardSupport,
+    flow: ["zendesk", "anthropic", "notion", "slack"],
   },
   {
     title: "Invoice reconciliation agent",
@@ -433,6 +437,8 @@ const FEED = [
     hours: 68,
     price: "$199",
     tags: ["Finance", "Xero"],
+    cover: cardFinance,
+    flow: ["gmail", "openai", "xero", "googlesheets"],
   },
   {
     title: "Voice AI receptionist",
@@ -442,6 +448,8 @@ const FEED = [
     hours: 30,
     price: "$99",
     tags: ["Voice", "Twilio"],
+    cover: cardVoice,
+    flow: ["twilio", "openai", "googlecalendar", "slack"],
   },
   {
     title: "Inventory forecasting",
@@ -451,6 +459,8 @@ const FEED = [
     hours: 90,
     price: "$179",
     tags: ["Ops", "Shopify"],
+    cover: cardOps,
+    flow: ["shopify", "openai", "googlesheets", "slack"],
   },
 ];
 
@@ -462,6 +472,8 @@ function FeedCard({
   hours,
   price,
   tags,
+  cover,
+  flow,
 }: (typeof FEED)[number]) {
   // map tags → real logo slugs where available
   const slugMap: Record<string, string> = {
@@ -478,26 +490,47 @@ function FeedCard({
     Shopify: "shopify",
   };
   return (
-    <div className="group rounded-xl border border-border bg-card p-3.5 transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-0.5 hover:border-foreground/20 hover:shadow-[0_10px_30px_-15px_rgba(0,0,0,0.15)]">
-      <div className="flex items-start justify-between gap-3">
-        <div className="flex items-center gap-2.5">
-          <div className="flex h-7 w-7 items-center justify-center rounded-md bg-muted text-[10px] font-semibold">
-            {initials}
-          </div>
-          <div>
-            <p className="text-[12.5px] font-medium leading-tight">{title}</p>
-            <p className="text-[11px] text-muted-foreground">{creator}</p>
+    <div className="group overflow-hidden rounded-xl border border-border bg-card/80 backdrop-blur-xl transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-0.5 hover:border-foreground/15 hover:shadow-[0_18px_50px_-24px_rgba(15,23,42,0.35)]">
+      <div className="flex gap-3 p-3.5">
+        {/* contextual cover */}
+        <div className="relative h-[58px] w-[72px] shrink-0 overflow-hidden rounded-lg border border-border bg-muted">
+          <img
+            src={cover}
+            alt=""
+            aria-hidden
+            loading="lazy"
+            width={512}
+            height={512}
+            className="h-full w-full object-cover transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.06]"
+          />
+          <div className="absolute inset-0 bg-gradient-to-tr from-background/50 to-transparent" />
+          <div className="absolute bottom-1 left-1 flex h-5 w-5 items-center justify-center rounded-md border border-border bg-background/85 backdrop-blur-md">
+            <LogoIcon slug={flow[0]} name={flow[0]} size={10} />
           </div>
         </div>
-        <div className="flex items-center gap-1 text-[11px] text-muted-foreground">
-          <Star className="h-3 w-3 fill-foreground text-foreground" />
-          {rating}
+
+        <div className="min-w-0 flex-1">
+          <div className="flex items-start justify-between gap-3">
+            <div className="flex items-center gap-2.5">
+              <div className="flex h-6 w-6 items-center justify-center rounded-md bg-muted text-[9.5px] font-semibold">
+                {initials}
+              </div>
+              <div className="min-w-0">
+                <p className="truncate text-[12.5px] font-medium leading-tight">{title}</p>
+                <p className="text-[11px] text-muted-foreground">{creator}</p>
+              </div>
+            </div>
+            <div className="flex items-center gap-1 text-[11px] text-muted-foreground">
+              <Star className="h-3 w-3 fill-foreground text-foreground" />
+              {rating}
+            </div>
+          </div>
+
+          <MiniFlow steps={flow} />
         </div>
       </div>
 
-      <MiniFlow />
-
-      <div className="mt-2.5 flex items-center justify-between">
+      <div className="flex items-center justify-between border-t border-border/70 bg-muted/30 px-3.5 py-2">
         <div className="flex items-center gap-1.5">
           {tags.slice(0, 3).map((t) =>
             slugMap[t] ? (
@@ -527,36 +560,40 @@ function FeedCard({
   );
 }
 
-function MiniFlow() {
+function MiniFlow({ steps = ["typeform", "openai", "hubspot", "slack"] }: { steps?: string[] }) {
   return (
-    <svg viewBox="0 0 240 32" className="mt-2.5 h-6 w-full text-muted-foreground">
-      {[10, 70, 130, 190].map((x, i) => (
-        <g key={x}>
-          <rect
-            x={x}
-            y="8"
-            width="40"
-            height="16"
-            rx="4"
-            className={i === 1 ? "fill-primary/10 stroke-primary" : "fill-background stroke-current"}
-            strokeWidth="1"
-          />
-          {i < 3 && (
-            <line
-              x1={x + 40}
-              y1="16"
-              x2={x + 60}
-              y2="16"
-              stroke="currentColor"
-              strokeDasharray="3 3"
-              className="animate-flow-dash"
-            />
+    <div className="mt-2.5 flex items-center gap-1">
+      {steps.map((slug, i) => (
+        <div key={slug + i} className="flex items-center gap-1">
+          <span
+            className={`flex h-6 w-6 items-center justify-center rounded-md border transition-colors duration-300 ${
+              i === 1
+                ? "border-primary/40 bg-primary/[0.07]"
+                : "border-border bg-background/70 backdrop-blur-sm"
+            }`}
+          >
+            <LogoIcon slug={slug} name={slug} size={11} />
+          </span>
+          {i < steps.length - 1 && (
+            <svg width="16" height="8" viewBox="0 0 16 8" className="text-muted-foreground/60">
+              <line
+                x1="0"
+                y1="4"
+                x2="16"
+                y2="4"
+                stroke="currentColor"
+                strokeWidth="1"
+                strokeDasharray="3 3"
+                className="animate-flow-dash"
+              />
+            </svg>
           )}
-        </g>
+        </div>
       ))}
-    </svg>
+    </div>
   );
 }
+
 
 /* ── Ecosystem ───────────────────────────────────────────────── */
 
