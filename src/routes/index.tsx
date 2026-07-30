@@ -1126,10 +1126,23 @@ function FeaturedAutomations() {
                 key={it.title}
                 className="group flex flex-col overflow-hidden rounded-2xl border border-border bg-card transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-1 hover:border-foreground/20 hover:shadow-[0_30px_60px_-30px_rgba(15,23,42,0.18)]"
               >
-                <div className="relative border-b border-border bg-muted/40 p-3">
-                  <AutomationPreview kind={it.kind} />
-                  <div className="pointer-events-none absolute inset-x-0 bottom-0 h-6 bg-gradient-to-t from-card/60 to-transparent" />
+                <div className="relative overflow-hidden border-b border-border p-3">
+                  <img
+                    src={COVER_BY_KIND[it.kind]}
+                    alt=""
+                    aria-hidden
+                    loading="lazy"
+                    width={512}
+                    height={512}
+                    className="absolute inset-0 h-full w-full scale-110 object-cover opacity-70 blur-[2px] transition-transform duration-[900ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.18]"
+                  />
+                  <div className="absolute inset-0 bg-background/55 backdrop-blur-xl" />
+                  <div className="relative">
+                    <AutomationPreview kind={it.kind} />
+                  </div>
+                  <div className="pointer-events-none absolute inset-x-0 bottom-0 h-6 bg-gradient-to-t from-card/70 to-transparent" />
                 </div>
+
                 <div className="flex flex-1 flex-col p-6">
                   <h3 className="text-[17px] font-medium tracking-tight">{it.title}</h3>
                   <p className="mt-1.5 text-[13.5px] leading-[1.5] text-muted-foreground">
