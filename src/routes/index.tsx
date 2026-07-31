@@ -1197,6 +1197,7 @@ function FeaturedAutomations() {
                     <AutomationPreview kind={it.kind} />
                   </div>
                   <div className="pointer-events-none absolute inset-x-0 bottom-0 h-6 bg-gradient-to-t from-card/70 to-transparent" />
+                  <WorkflowBadge category={it.kind} size="md" className="absolute right-3 top-3 z-10" />
                 </div>
 
                 <div className="flex flex-1 flex-col p-6">
