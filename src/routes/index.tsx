@@ -524,11 +524,6 @@ function FeedCard({
 
         <div className="min-w-0 flex-1">
           <div className="flex items-start justify-between gap-3">
-            <WorkflowBadge
-              category={tags[0]}
-              className="absolute right-2 top-2 z-10"
-            />
-
             <div className="flex items-center gap-2.5">
               <div className="flex h-6 w-6 items-center justify-center rounded-md bg-muted text-[9.5px] font-semibold">
                 {initials}
@@ -538,9 +533,12 @@ function FeedCard({
                 <p className="text-[11px] text-muted-foreground">{creator}</p>
               </div>
             </div>
-            <div className="flex items-center gap-1 text-[11px] text-muted-foreground">
-              <Star className="h-3 w-3 fill-foreground text-foreground" />
-              {rating}
+            <div className="flex shrink-0 items-center gap-1.5 text-[11px] text-muted-foreground">
+              <WorkflowBadge category={tags[0]} />
+              <span className="flex items-center gap-1">
+                <Star className="h-3 w-3 fill-foreground text-foreground" />
+                {rating}
+              </span>
             </div>
           </div>
 
