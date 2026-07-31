@@ -503,7 +503,7 @@ function FeedCard({
     Shopify: "shopify",
   };
   return (
-    <div className="group overflow-hidden rounded-xl border border-border bg-card/80 backdrop-blur-xl transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-0.5 hover:border-foreground/15 hover:shadow-[0_18px_50px_-24px_rgba(15,23,42,0.35)]">
+    <div className="group relative overflow-hidden rounded-xl border border-border bg-card/80 backdrop-blur-xl transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-0.5 hover:border-foreground/15 hover:shadow-[0_18px_50px_-24px_rgba(15,23,42,0.35)]">
       <div className="flex gap-3 p-3.5">
         {/* contextual cover */}
         <div className="relative h-[58px] w-[72px] shrink-0 overflow-hidden rounded-lg border border-border bg-muted">
@@ -533,9 +533,12 @@ function FeedCard({
                 <p className="text-[11px] text-muted-foreground">{creator}</p>
               </div>
             </div>
-            <div className="flex items-center gap-1 text-[11px] text-muted-foreground">
-              <Star className="h-3 w-3 fill-foreground text-foreground" />
-              {rating}
+            <div className="flex shrink-0 items-center gap-1.5 text-[11px] text-muted-foreground">
+              <WorkflowBadge category={tags[0]} />
+              <span className="flex items-center gap-1">
+                <Star className="h-3 w-3 fill-foreground text-foreground" />
+                {rating}
+              </span>
             </div>
           </div>
 
@@ -604,6 +607,52 @@ function MiniFlow({ steps = ["typeform", "openai", "hubspot", "slack"] }: { step
         </div>
       ))}
     </div>
+  );
+}
+
+const CATEGORY_META: Record<string, { slug: string; label: string }> = {
+  Sales: { slug: "hubspot", label: "Sales" },
+  Support: { slug: "zendesk", label: "Support" },
+  Finance: { slug: "xero", label: "Finance" },
+  Voice: { slug: "twilio", label: "Voice" },
+  Ops: { slug: "shopify", label: "Ops" },
+  sales: { slug: "hubspot", label: "Sales" },
+  support: { slug: "zendesk", label: "Support" },
+  finance: { slug: "xero", label: "Finance" },
+  voice: { slug: "twilio", label: "Voice" },
+};
+
+/** Category pill that stays icon-only at rest and expands its label on card hover. */
+function WorkflowBadge({
+  category,
+  className = "",
+  size = "sm",
+}: {
+  category: string;
+  className?: string;
+  size?: "sm" | "md";
+}) {
+  const meta = CATEGORY_META[category] ?? { slug: "openai", label: category };
+  const pad = size === "md" ? "h-7 px-2" : "h-6 px-1.5";
+  const text = size === "md" ? "text-[11.5px]" : "text-[10.5px]";
+  return (
+    <span
+      className={`pointer-events-none inline-flex ${pad} items-center gap-1.5 rounded-full border border-border bg-background/80 shadow-[0_6px_18px_-12px_rgba(15,23,42,0.5)] backdrop-blur-xl transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:border-primary/35 group-hover:bg-background/95 ${className}`}
+    >
+      <span className="relative flex h-3.5 w-3.5 items-center justify-center">
+        <span className="absolute inset-0 rounded-full bg-primary/25 opacity-0 transition-opacity duration-500 group-hover:animate-ping group-hover:opacity-100" />
+        <LogoIcon slug={meta.slug} name={meta.label} size={size === "md" ? 12 : 11} />
+      </span>
+      <span className="grid grid-cols-[0fr] transition-[grid-template-columns] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:grid-cols-[1fr]">
+        <span className="overflow-hidden">
+          <span
+            className={`block whitespace-nowrap ${text} font-medium tracking-tight opacity-0 transition-opacity duration-300 group-hover:opacity-100`}
+          >
+            {meta.label}
+          </span>
+        </span>
+      </span>
+    </span>
   );
 }
 
@@ -1148,6 +1197,7 @@ function FeaturedAutomations() {
                     <AutomationPreview kind={it.kind} />
                   </div>
                   <div className="pointer-events-none absolute inset-x-0 bottom-0 h-6 bg-gradient-to-t from-card/70 to-transparent" />
+                  <WorkflowBadge category={it.kind} size="md" className="absolute right-3 top-3 z-10" />
                 </div>
 
                 <div className="flex flex-1 flex-col p-6">
