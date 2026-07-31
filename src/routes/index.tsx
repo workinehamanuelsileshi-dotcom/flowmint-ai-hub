@@ -524,6 +524,11 @@ function FeedCard({
 
         <div className="min-w-0 flex-1">
           <div className="flex items-start justify-between gap-3">
+            <WorkflowBadge
+              category={tags[0]}
+              className="absolute right-2 top-2 z-10"
+            />
+
             <div className="flex items-center gap-2.5">
               <div className="flex h-6 w-6 items-center justify-center rounded-md bg-muted text-[9.5px] font-semibold">
                 {initials}
