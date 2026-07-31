@@ -503,7 +503,7 @@ function FeedCard({
     Shopify: "shopify",
   };
   return (
-    <div className="group overflow-hidden rounded-xl border border-border bg-card/80 backdrop-blur-xl transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-0.5 hover:border-foreground/15 hover:shadow-[0_18px_50px_-24px_rgba(15,23,42,0.35)]">
+    <div className="group relative overflow-hidden rounded-xl border border-border bg-card/80 backdrop-blur-xl transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-0.5 hover:border-foreground/15 hover:shadow-[0_18px_50px_-24px_rgba(15,23,42,0.35)]">
       <div className="flex gap-3 p-3.5">
         {/* contextual cover */}
         <div className="relative h-[58px] w-[72px] shrink-0 overflow-hidden rounded-lg border border-border bg-muted">
