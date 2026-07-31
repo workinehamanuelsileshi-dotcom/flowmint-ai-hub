@@ -607,6 +607,52 @@ function MiniFlow({ steps = ["typeform", "openai", "hubspot", "slack"] }: { step
   );
 }
 
+const CATEGORY_META: Record<string, { slug: string; label: string }> = {
+  Sales: { slug: "hubspot", label: "Sales" },
+  Support: { slug: "zendesk", label: "Support" },
+  Finance: { slug: "xero", label: "Finance" },
+  Voice: { slug: "twilio", label: "Voice" },
+  Ops: { slug: "shopify", label: "Ops" },
+  sales: { slug: "hubspot", label: "Sales" },
+  support: { slug: "zendesk", label: "Support" },
+  finance: { slug: "xero", label: "Finance" },
+  voice: { slug: "twilio", label: "Voice" },
+};
+
+/** Category pill that stays icon-only at rest and expands its label on card hover. */
+function WorkflowBadge({
+  category,
+  className = "",
+  size = "sm",
+}: {
+  category: string;
+  className?: string;
+  size?: "sm" | "md";
+}) {
+  const meta = CATEGORY_META[category] ?? { slug: "openai", label: category };
+  const pad = size === "md" ? "h-7 px-2" : "h-6 px-1.5";
+  const text = size === "md" ? "text-[11.5px]" : "text-[10.5px]";
+  return (
+    <span
+      className={`pointer-events-none inline-flex ${pad} items-center gap-1.5 rounded-full border border-border bg-background/80 shadow-[0_6px_18px_-12px_rgba(15,23,42,0.5)] backdrop-blur-xl transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:border-primary/35 group-hover:bg-background/95 ${className}`}
+    >
+      <span className="relative flex h-3.5 w-3.5 items-center justify-center">
+        <span className="absolute inset-0 rounded-full bg-primary/25 opacity-0 transition-opacity duration-500 group-hover:animate-ping group-hover:opacity-100" />
+        <LogoIcon slug={meta.slug} name={meta.label} size={size === "md" ? 12 : 11} />
+      </span>
+      <span className="grid grid-cols-[0fr] transition-[grid-template-columns] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:grid-cols-[1fr]">
+        <span className="overflow-hidden">
+          <span
+            className={`block whitespace-nowrap ${text} font-medium tracking-tight opacity-0 transition-opacity duration-300 group-hover:opacity-100`}
+          >
+            {meta.label}
+          </span>
+        </span>
+      </span>
+    </span>
+  );
+}
+
 
 /* ── Ecosystem ───────────────────────────────────────────────── */
 
