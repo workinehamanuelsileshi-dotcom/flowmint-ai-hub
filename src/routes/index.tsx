@@ -23,6 +23,20 @@ import {
   Bell,
   Grid,
   Command,
+  ChevronDown,
+  ChevronUp,
+  TrendingUp,
+  Megaphone,
+  Wallet,
+  Settings2,
+  Headphones,
+  UserPlus,
+  LineChart,
+  Bot,
+  Mic,
+  HeartPulse,
+  Scale,
+  Home,
 } from "lucide-react";
 import dnaWorkspace from "../assets/dna-workspace.jpg";
 import forBusinesses from "../assets/for-businesses.jpg";
@@ -150,8 +164,19 @@ function Landing() {
 
 function Nav() {
   const [scrolled, setScrolled] = useState(false);
+  const [hidden, setHidden] = useState(false);
+  const [progress, setProgress] = useState(0);
+  const lastY = useRef(0);
+
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 8);
+    const onScroll = () => {
+      const y = window.scrollY;
+      const max = document.documentElement.scrollHeight - window.innerHeight;
+      setScrolled(y > 8);
+      setProgress(max > 0 ? Math.min(1, y / max) : 0);
+      setHidden(y > 240 && y > lastY.current);
+      lastY.current = y;
+    };
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
@@ -160,14 +185,25 @@ function Nav() {
   const links = ["Marketplace", "Solutions", "Business", "Creators", "Resources"];
 
   return (
-    <header className="fixed inset-x-0 top-4 z-50 flex justify-center px-4">
+    <header
+      className={`fixed inset-x-0 top-4 z-50 flex justify-center px-4 transition-[transform,opacity] duration-500 [transition-timing-function:cubic-bezier(0.22,1,0.36,1)] ${
+        hidden ? "-translate-y-[130%] opacity-0" : "translate-y-0 opacity-100"
+      }`}
+    >
       <nav
-        className={`flex w-full max-w-[1240px] items-center justify-between rounded-full border border-border bg-background/80 backdrop-blur-xl transition-all duration-300 ${
-          scrolled ? "h-14 px-4 shadow-[0_8px_30px_-12px_rgba(0,0,0,0.08)]" : "h-16 px-5"
+        className={`relative flex w-full items-center justify-between overflow-hidden rounded-full border transition-all duration-500 [transition-timing-function:cubic-bezier(0.22,1,0.36,1)] ${
+          scrolled
+            ? "h-14 max-w-[1000px] border-border/80 bg-background/70 px-4 shadow-[0_12px_40px_-16px_rgba(0,0,0,0.18)] backdrop-blur-2xl backdrop-saturate-150"
+            : "h-16 max-w-[1240px] border-border bg-background/60 px-5 shadow-none backdrop-blur-xl"
         }`}
       >
-        <a href="#" className="flex items-center gap-2">
-          <FlowmintMark />
+        <span
+          aria-hidden
+          className="pointer-events-none absolute inset-x-0 bottom-0 h-[2px] origin-left bg-primary/70 transition-transform duration-150"
+          style={{ transform: `scaleX(${progress})` }}
+        />
+        <a href="#" className="group flex items-center gap-2">
+          <FlowmintMark className={`transition-transform duration-500 ${scrolled ? "scale-90" : "scale-100"}`} />
           <span className="text-[15px] font-semibold tracking-tight">Flowmint</span>
         </a>
 
@@ -1040,18 +1076,18 @@ function HowItWorks() {
 
 function Categories() {
   const cats = [
-    "Sales",
-    "Marketing",
-    "Finance",
-    "Operations",
-    "Customer Support",
-    "HR",
-    "Analytics",
-    "AI Agents",
-    "Voice AI",
-    "Healthcare",
-    "Legal",
-    "Real Estate",
+    { name: "Sales", icon: TrendingUp, count: "312 automations", detail: "Pipeline, outbound, CRM hygiene", logos: ["hubspot", "salesforce"] },
+    { name: "Marketing", icon: Megaphone, count: "248 automations", detail: "Campaigns, content, attribution", logos: ["mailchimp", "webflow"] },
+    { name: "Finance", icon: Wallet, count: "164 automations", detail: "Invoices, reconciliation, payouts", logos: ["stripe", "xero"] },
+    { name: "Operations", icon: Settings2, count: "201 automations", detail: "Approvals, routing, reporting", logos: ["notion", "n8n"] },
+    { name: "Customer Support", icon: Headphones, count: "187 automations", detail: "Triage, replies, CSAT loops", logos: ["zendesk", "intercom"] },
+    { name: "HR", icon: UserPlus, count: "96 automations", detail: "Onboarding, screening, docs", logos: ["slack", "googledrive"] },
+    { name: "Analytics", icon: LineChart, count: "132 automations", detail: "Dashboards, alerts, digests", logos: ["googleanalytics", "looker"] },
+    { name: "AI Agents", icon: Bot, count: "274 automations", detail: "Reasoning agents with tools", logos: ["openai", "anthropic"] },
+    { name: "Voice AI", icon: Mic, count: "88 automations", detail: "Inbound calls, booking, notes", logos: ["twilio", "elevenlabs"] },
+    { name: "Healthcare", icon: HeartPulse, count: "54 automations", detail: "Intake, scheduling, follow-up", logos: ["calendly", "gmail"] },
+    { name: "Legal", icon: Scale, count: "61 automations", detail: "Review, clauses, redlines", logos: ["docusign", "notion"] },
+    { name: "Real Estate", icon: Home, count: "47 automations", detail: "Leads, tours, listing ops", logos: ["airtable", "whatsapp"] },
   ];
   return (
     <section className="py-32 md:py-40">
@@ -1065,17 +1101,45 @@ function Categories() {
           </h2>
         </div>
         <ul className="mt-14 flex flex-wrap gap-3">
-          {cats.map((c) => (
-            <li key={c}>
-              <a
-                href="#"
-                className="inline-flex items-center gap-2 rounded-full border border-border bg-background px-5 py-2.5 text-[14px] text-foreground transition-all duration-200 hover:border-primary hover:text-primary"
-              >
-                {c}
-                <ArrowUpRight className="h-3.5 w-3.5 opacity-0 transition-opacity duration-200 group-hover:opacity-100" />
-              </a>
-            </li>
-          ))}
+          {cats.map((c) => {
+            const Icon = c.icon;
+            return (
+              <li key={c.name}>
+                <a
+                  href="#"
+                  className="group relative inline-flex items-center gap-2 overflow-hidden rounded-full border border-border bg-background/70 px-5 py-2.5 text-[14px] text-foreground shadow-[0_1px_2px_rgba(0,0,0,0.03)] backdrop-blur-xl transition-all duration-500 [transition-timing-function:cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-0.5 hover:border-primary/40 hover:bg-background hover:pr-4 hover:shadow-[0_16px_40px_-20px_rgba(37,99,235,0.5)]"
+                >
+                  <span
+                    aria-hidden
+                    className="pointer-events-none absolute inset-0 -z-10 opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+                    style={{
+                      background:
+                        "radial-gradient(120% 140% at 0% 0%, color-mix(in oklab, var(--primary) 12%, transparent), transparent 60%)",
+                    }}
+                  />
+                  <span className="flex h-6 w-0 items-center justify-center overflow-hidden opacity-0 transition-all duration-500 [transition-timing-function:cubic-bezier(0.22,1,0.36,1)] group-hover:w-6 group-hover:opacity-100">
+                    <Icon className="h-[15px] w-[15px] text-primary" />
+                  </span>
+                  <span className="whitespace-nowrap transition-colors duration-300 group-hover:text-primary">
+                    {c.name}
+                  </span>
+                  <span className="flex max-w-0 items-center gap-2 overflow-hidden whitespace-nowrap opacity-0 transition-all duration-500 [transition-timing-function:cubic-bezier(0.22,1,0.36,1)] group-hover:max-w-[560px] group-hover:opacity-100">
+                    <span className="h-4 w-px bg-border" />
+                    <span className="text-[12px] text-muted-foreground">{c.count}</span>
+                    <span className="hidden text-[12px] text-muted-foreground/70 sm:inline">
+                      · {c.detail}
+                    </span>
+                    <span className="flex items-center gap-1">
+                      {c.logos.map((s) => (
+                        <LogoIcon key={s} slug={s} name={s} size={13} />
+                      ))}
+                    </span>
+                    <ArrowUpRight className="h-3.5 w-3.5 text-primary" />
+                  </span>
+                </a>
+              </li>
+            );
+          })}
         </ul>
       </div>
     </section>
@@ -1603,52 +1667,72 @@ function FAQ() {
       q: "Do I need technical skills to use Flowmint?",
       a: "No. Every automation has a visual workflow and creators handle setup end-to-end.",
     },
-    {
-      q: "Is there a free tier?",
-      a: "Yes. You can explore the marketplace, preview workflows and chat with creators for free.",
-    },
   ];
-  const [open, setOpen] = useState<number | null>(0);
+  const [activeIndex, setActiveIndex] = useState<number | null>(0);
+
   return (
     <section className="py-32 md:py-40">
-      <div className="mx-auto grid max-w-[1240px] gap-16 px-6 lg:grid-cols-[1fr_1.6fr] lg:gap-24 lg:px-8">
-        <div>
-          <p className="text-[11px] font-medium uppercase tracking-[0.18em] text-muted-foreground">
-            FAQ
-          </p>
-          <h2 className="mt-5 text-balance text-[40px] font-medium leading-[1.05] tracking-[-0.035em] md:text-[48px]">
-            Answers, calmly.
-          </h2>
+      <div className="mx-auto grid max-w-[1240px] items-stretch gap-8 px-6 lg:grid-cols-[1.6fr_1fr] lg:px-8">
+        {/* Animated gradient CTA */}
+        <div className="c5-animated-gradient relative flex flex-col items-center justify-center overflow-hidden rounded-[24px] px-10 py-20 text-center text-primary-foreground shadow-[0_10px_30px_rgba(0,0,0,0.05)]">
+          <div
+            aria-hidden
+            className="pointer-events-none absolute inset-0 backdrop-blur-[60px]"
+          />
+          <div className="relative">
+            <h2 className="mb-4 text-[40px] font-normal leading-[1.05] tracking-[-0.03em] md:text-[56px]">
+              Ready to automate
+              <br />
+              without limits?
+            </h2>
+            <p className="mb-8 text-[0.95rem] font-normal opacity-90">
+              Deploy vetted AI automations built for your business DNA.
+            </p>
+            <a
+              href="#"
+              className="inline-flex items-center gap-2 rounded-[12px] bg-foreground px-8 py-3.5 text-[0.95rem] font-semibold text-background shadow-[0_10px_20px_rgba(0,0,0,0.3)] transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[0_14px_30px_rgba(0,0,0,0.4)]"
+            >
+              Get started today
+              <ArrowRight className="h-4 w-4" />
+            </a>
+          </div>
         </div>
-        <ul className="divide-y divide-border border-y border-border">
+
+        {/* FAQ accordion */}
+        <div className="flex flex-col justify-center gap-3">
           {faqs.map((f, i) => {
-            const isOpen = open === i;
+            const active = activeIndex === i;
             return (
-              <li key={f.q}>
-                <button
-                  onClick={() => setOpen(isOpen ? null : i)}
-                  className="flex w-full items-center justify-between gap-8 py-6 text-left transition-colors hover:text-primary"
-                >
-                  <span className="text-[16px] font-medium tracking-tight">{f.q}</span>
-                  <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-border text-muted-foreground">
-                    {isOpen ? <Minus className="h-3.5 w-3.5" /> : <Plus className="h-3.5 w-3.5" />}
-                  </span>
-                </button>
+              <div
+                key={f.q}
+                onClick={() => setActiveIndex(active ? null : i)}
+                className={`cursor-pointer rounded-[10px] border bg-card px-5 py-[18px] transition-all duration-200 ${
+                  active
+                    ? "border-border shadow-[0_4px_12px_rgba(0,0,0,0.04)]"
+                    : "border-border/50 shadow-[0_2px_8px_rgba(0,0,0,0.02)] hover:border-border"
+                }`}
+              >
+                <div className="flex items-center justify-between gap-4 text-[0.9rem] font-normal text-foreground">
+                  <span>{f.q}</span>
+                  {active ? (
+                    <ChevronUp className="h-5 w-5 shrink-0 text-muted-foreground" />
+                  ) : (
+                    <ChevronDown className="h-5 w-5 shrink-0 text-muted-foreground" />
+                  )}
+                </div>
                 <div
                   className={`grid overflow-hidden transition-all duration-300 ease-out ${
-                    isOpen ? "grid-rows-[1fr] pb-6 opacity-100" : "grid-rows-[0fr] opacity-0"
+                    active ? "mt-3 grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
                   }`}
                 >
                   <div className="min-h-0">
-                    <p className="max-w-2xl pr-12 text-[15px] leading-[1.65] text-muted-foreground">
-                      {f.a}
-                    </p>
+                    <p className="text-[0.9rem] leading-[1.6] text-muted-foreground">{f.a}</p>
                   </div>
                 </div>
-              </li>
+              </div>
             );
           })}
-        </ul>
+        </div>
       </div>
     </section>
   );
