@@ -41,7 +41,7 @@ import {
 import dnaWorkspace from "../assets/dna-workspace.jpg";
 import forBusinesses from "../assets/for-businesses.jpg";
 import forCreators from "../assets/for-creators.jpg";
-import finalCtaBg from "../assets/final-cta-bg.jpg";
+import ctaWaves from "../assets/cta-waves.jpg.asset.json";
 import cardSales from "../assets/card-sales.jpg";
 import cardSupport from "../assets/card-support.jpg";
 import cardFinance from "../assets/card-finance.jpg";
