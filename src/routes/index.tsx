@@ -164,8 +164,19 @@ function Landing() {
 
 function Nav() {
   const [scrolled, setScrolled] = useState(false);
+  const [hidden, setHidden] = useState(false);
+  const [progress, setProgress] = useState(0);
+  const lastY = useRef(0);
+
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 8);
+    const onScroll = () => {
+      const y = window.scrollY;
+      const max = document.documentElement.scrollHeight - window.innerHeight;
+      setScrolled(y > 8);
+      setProgress(max > 0 ? Math.min(1, y / max) : 0);
+      setHidden(y > 240 && y > lastY.current);
+      lastY.current = y;
+    };
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
@@ -174,11 +185,16 @@ function Nav() {
   const links = ["Marketplace", "Solutions", "Business", "Creators", "Resources"];
 
   return (
-    <header className="fixed inset-x-0 top-4 z-50 flex justify-center px-4">
+    <header
+      className={`fixed inset-x-0 top-4 z-50 flex justify-center px-4 transition-[transform,opacity] duration-500 [transition-timing-function:cubic-bezier(0.22,1,0.36,1)] ${
+        hidden ? "-translate-y-[130%] opacity-0" : "translate-y-0 opacity-100"
+      }`}
+    >
       <nav
-        className={`flex w-full max-w-[1240px] items-center justify-between rounded-full border border-border bg-background/80 backdrop-blur-xl transition-all duration-300 ${
-          scrolled ? "h-14 px-4 shadow-[0_8px_30px_-12px_rgba(0,0,0,0.08)]" : "h-16 px-5"
-        }`}
+        className={`relative flex w-full items-center justify-between overflow-hidden rounded-full border transition-all duration-500 [transition-timing-function:cubic-bezier(0.22,1,0.36,1)] ${
+          scrolled
+            ? "h-14 max-w-[1000px] border-border/80 bg-background/70 px-4 shadow-[0_12px_40px_-16px_rgba(0,0,0,0.18)] backdrop-blur-2xl backdrop-saturate-150"
+            : "h-16 max-w-[1240px] border-border bg-background/60 px-5 shadow-none backdrop-blur-xl"
       >
         <a href="#" className="flex items-center gap-2">
           <FlowmintMark />
