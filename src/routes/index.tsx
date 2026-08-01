@@ -1123,7 +1123,7 @@ function Categories() {
                   <span className="whitespace-nowrap transition-colors duration-300 group-hover:text-primary">
                     {c.name}
                   </span>
-                  <span className="flex max-w-0 items-center gap-2 overflow-hidden whitespace-nowrap opacity-0 transition-all duration-500 [transition-timing-function:cubic-bezier(0.22,1,0.36,1)] group-hover:max-w-[320px] group-hover:opacity-100">
+                  <span className="flex max-w-0 items-center gap-2 overflow-hidden whitespace-nowrap opacity-0 transition-all duration-500 [transition-timing-function:cubic-bezier(0.22,1,0.36,1)] group-hover:max-w-[560px] group-hover:opacity-100">
                     <span className="h-4 w-px bg-border" />
                     <span className="text-[12px] text-muted-foreground">{c.count}</span>
                     <span className="hidden text-[12px] text-muted-foreground/70 sm:inline">
