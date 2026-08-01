@@ -23,6 +23,20 @@ import {
   Bell,
   Grid,
   Command,
+  ChevronDown,
+  ChevronUp,
+  TrendingUp,
+  Megaphone,
+  Wallet,
+  Settings2,
+  Headphones,
+  UserPlus,
+  LineChart,
+  Bot,
+  Mic,
+  HeartPulse,
+  Scale,
+  Home,
 } from "lucide-react";
 import dnaWorkspace from "../assets/dna-workspace.jpg";
 import forBusinesses from "../assets/for-businesses.jpg";
