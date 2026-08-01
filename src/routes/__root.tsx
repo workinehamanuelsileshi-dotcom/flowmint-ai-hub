@@ -81,21 +81,24 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       {
         name: "description",
         content:
-          "Flowmint helps businesses discover, compare, customize, and deploy AI automations built by trusted creators — all in one intelligent marketplace.",
+          "Discover, compare, customize and deploy AI automations built by trusted creators — all in one intelligent marketplace.",
       },
       { name: "author", content: "Flowmint" },
       { property: "og:title", content: "Flowmint — The AI Automation Marketplace" },
       {
         property: "og:description",
         content:
-          "Discover AI automations that actually grow your business. Compare, customize and deploy in one intelligent marketplace.",
+          "Discover, compare, customize and deploy AI automations built by trusted creators — all in one intelligent marketplace.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "Flowmint — The AI Automation Marketplace" },
+      { name: "twitter:description", content: "Discover, compare, customize and deploy AI automations built by trusted creators — all in one intelligent marketplace." },
+      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/b7072475-56f9-45e7-948c-0e867dff27a2/id-preview-66414dbf--5db364ae-180d-4faa-8ffb-34929f25986c.lovable.app-1785566211837.png" },
+      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/b7072475-56f9-45e7-948c-0e867dff27a2/id-preview-66414dbf--5db364ae-180d-4faa-8ffb-34929f25986c.lovable.app-1785566211837.png" },
     ],
     links: [
       { rel: "stylesheet", href: appCss },
-      { rel: "icon", href: "/favicon.ico", type: "image/x-icon" },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       {
