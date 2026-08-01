@@ -1076,18 +1076,18 @@ function HowItWorks() {
 
 function Categories() {
   const cats = [
-    "Sales",
-    "Marketing",
-    "Finance",
-    "Operations",
-    "Customer Support",
-    "HR",
-    "Analytics",
-    "AI Agents",
-    "Voice AI",
-    "Healthcare",
-    "Legal",
-    "Real Estate",
+    { name: "Sales", icon: TrendingUp, count: "312 automations", detail: "Pipeline, outbound, CRM hygiene", logos: ["hubspot", "salesforce"] },
+    { name: "Marketing", icon: Megaphone, count: "248 automations", detail: "Campaigns, content, attribution", logos: ["mailchimp", "webflow"] },
+    { name: "Finance", icon: Wallet, count: "164 automations", detail: "Invoices, reconciliation, payouts", logos: ["stripe", "xero"] },
+    { name: "Operations", icon: Settings2, count: "201 automations", detail: "Approvals, routing, reporting", logos: ["notion", "n8n"] },
+    { name: "Customer Support", icon: Headphones, count: "187 automations", detail: "Triage, replies, CSAT loops", logos: ["zendesk", "intercom"] },
+    { name: "HR", icon: UserPlus, count: "96 automations", detail: "Onboarding, screening, docs", logos: ["slack", "googledrive"] },
+    { name: "Analytics", icon: LineChart, count: "132 automations", detail: "Dashboards, alerts, digests", logos: ["googleanalytics", "looker"] },
+    { name: "AI Agents", icon: Bot, count: "274 automations", detail: "Reasoning agents with tools", logos: ["openai", "anthropic"] },
+    { name: "Voice AI", icon: Mic, count: "88 automations", detail: "Inbound calls, booking, notes", logos: ["twilio", "elevenlabs"] },
+    { name: "Healthcare", icon: HeartPulse, count: "54 automations", detail: "Intake, scheduling, follow-up", logos: ["calendly", "gmail"] },
+    { name: "Legal", icon: Scale, count: "61 automations", detail: "Review, clauses, redlines", logos: ["docusign", "notion"] },
+    { name: "Real Estate", icon: Home, count: "47 automations", detail: "Leads, tours, listing ops", logos: ["airtable", "whatsapp"] },
   ];
   return (
     <section className="py-32 md:py-40">
@@ -1101,17 +1101,45 @@ function Categories() {
           </h2>
         </div>
         <ul className="mt-14 flex flex-wrap gap-3">
-          {cats.map((c) => (
-            <li key={c}>
-              <a
-                href="#"
-                className="inline-flex items-center gap-2 rounded-full border border-border bg-background px-5 py-2.5 text-[14px] text-foreground transition-all duration-200 hover:border-primary hover:text-primary"
-              >
-                {c}
-                <ArrowUpRight className="h-3.5 w-3.5 opacity-0 transition-opacity duration-200 group-hover:opacity-100" />
-              </a>
-            </li>
-          ))}
+          {cats.map((c) => {
+            const Icon = c.icon;
+            return (
+              <li key={c.name}>
+                <a
+                  href="#"
+                  className="group relative inline-flex items-center gap-2 overflow-hidden rounded-full border border-border bg-background/70 px-5 py-2.5 text-[14px] text-foreground shadow-[0_1px_2px_rgba(0,0,0,0.03)] backdrop-blur-xl transition-all duration-500 [transition-timing-function:cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-0.5 hover:border-primary/40 hover:bg-background hover:pr-4 hover:shadow-[0_16px_40px_-20px_rgba(37,99,235,0.5)]"
+                >
+                  <span
+                    aria-hidden
+                    className="pointer-events-none absolute inset-0 -z-10 opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+                    style={{
+                      background:
+                        "radial-gradient(120% 140% at 0% 0%, color-mix(in oklab, var(--primary) 12%, transparent), transparent 60%)",
+                    }}
+                  />
+                  <span className="flex h-6 w-0 items-center justify-center overflow-hidden opacity-0 transition-all duration-500 [transition-timing-function:cubic-bezier(0.22,1,0.36,1)] group-hover:w-6 group-hover:opacity-100">
+                    <Icon className="h-[15px] w-[15px] text-primary" />
+                  </span>
+                  <span className="whitespace-nowrap transition-colors duration-300 group-hover:text-primary">
+                    {c.name}
+                  </span>
+                  <span className="flex max-w-0 items-center gap-2 overflow-hidden whitespace-nowrap opacity-0 transition-all duration-500 [transition-timing-function:cubic-bezier(0.22,1,0.36,1)] group-hover:max-w-[320px] group-hover:opacity-100">
+                    <span className="h-4 w-px bg-border" />
+                    <span className="text-[12px] text-muted-foreground">{c.count}</span>
+                    <span className="hidden text-[12px] text-muted-foreground/70 sm:inline">
+                      · {c.detail}
+                    </span>
+                    <span className="flex items-center gap-1">
+                      {c.logos.map((s) => (
+                        <LogoIcon key={s} slug={s} name={s} size={13} />
+                      ))}
+                    </span>
+                    <ArrowUpRight className="h-3.5 w-3.5 text-primary" />
+                  </span>
+                </a>
+              </li>
+            );
+          })}
         </ul>
       </div>
     </section>
