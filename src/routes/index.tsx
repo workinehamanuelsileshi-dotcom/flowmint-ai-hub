@@ -195,9 +195,15 @@ function Nav() {
           scrolled
             ? "h-14 max-w-[1000px] border-border/80 bg-background/70 px-4 shadow-[0_12px_40px_-16px_rgba(0,0,0,0.18)] backdrop-blur-2xl backdrop-saturate-150"
             : "h-16 max-w-[1240px] border-border bg-background/60 px-5 shadow-none backdrop-blur-xl"
+        }`}
       >
-        <a href="#" className="flex items-center gap-2">
-          <FlowmintMark />
+        <span
+          aria-hidden
+          className="pointer-events-none absolute inset-x-0 bottom-0 h-[2px] origin-left bg-primary/70 transition-transform duration-150"
+          style={{ transform: `scaleX(${progress})` }}
+        />
+        <a href="#" className="group flex items-center gap-2">
+          <FlowmintMark className={`transition-transform duration-500 ${scrolled ? "scale-90" : "scale-100"}`} />
           <span className="text-[15px] font-semibold tracking-tight">Flowmint</span>
         </a>
 
