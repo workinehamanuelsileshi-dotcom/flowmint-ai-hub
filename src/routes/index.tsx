@@ -1744,17 +1744,17 @@ function FinalCTA() {
   return (
     <section className="relative overflow-hidden py-40 md:py-56">
       <img
-        src={finalCtaBg}
+        src={ctaWaves.url}
         alt=""
         aria-hidden="true"
         loading="lazy"
         width={1920}
-        height={900}
-        className="pointer-events-none absolute inset-0 -z-10 h-full w-full object-cover opacity-80"
+        height={1080}
+        className="pointer-events-none absolute inset-0 -z-10 h-full w-full object-cover"
       />
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-0 -z-10 bg-gradient-to-b from-background/40 via-background/10 to-background"
+        className="pointer-events-none absolute inset-0 -z-10 bg-gradient-to-b from-background/30 via-background/10 to-background"
       />
       <div className="mx-auto max-w-[1240px] px-6 text-center lg:px-8">
         <h2 className="mx-auto max-w-4xl text-balance text-[52px] font-medium leading-[1.02] tracking-[-0.04em] md:text-[88px]">
