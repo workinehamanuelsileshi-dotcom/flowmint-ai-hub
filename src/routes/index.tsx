@@ -1822,17 +1822,32 @@ function Footer() {
               The AI Automation Marketplace. Built for businesses that ship.
             </p>
             <div className="mt-6 flex items-center gap-3 text-muted-foreground">
-              {["X", "in", "GH", "YT"].map((s) => (
+              {[
+                { label: "X", src: "https://cdn.simpleicons.org/x/000000" },
+                { label: "LinkedIn", src: "https://cdn.simpleicons.org/linkedin/000000" },
+                { label: "GitHub", src: "https://cdn.simpleicons.org/github/000000" },
+                { label: "YouTube", src: "https://cdn.simpleicons.org/youtube/000000" },
+              ].map((s) => (
                 <a
-                  key={s}
+                  key={s.label}
                   href="#"
-                  className="flex h-8 w-8 items-center justify-center rounded-full border border-border text-[10.5px] font-medium transition-colors hover:border-primary hover:text-primary"
+                  aria-label={s.label}
+                  className="flex h-9 w-9 items-center justify-center rounded-full border border-border transition-all duration-300 hover:-translate-y-0.5 hover:border-primary hover:bg-primary/5"
                 >
-                  {s}
+                  <img
+                    src={s.src}
+                    alt=""
+                    aria-hidden="true"
+                    loading="lazy"
+                    width={14}
+                    height={14}
+                    className="h-3.5 w-3.5 opacity-60 transition-opacity hover:opacity-100"
+                  />
                 </a>
               ))}
             </div>
           </div>
+
           {cols.map((c) => (
             <div key={c.title}>
               <p className="text-[12px] font-medium uppercase tracking-[0.14em] text-foreground">
