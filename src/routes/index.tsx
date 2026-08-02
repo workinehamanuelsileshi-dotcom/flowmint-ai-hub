@@ -39,9 +39,10 @@ import {
   Home,
 } from "lucide-react";
 import dnaWorkspace from "../assets/dna-workspace.jpg";
-import forBusinesses from "../assets/for-businesses.jpg";
-import forCreators from "../assets/for-creators.jpg";
-import ctaWaves from "../assets/cta-waves.jpg.asset.json";
+import forBusinesses from "../assets/built-for-you.jpg.asset.json";
+import forCreators from "../assets/creator-flow.jpg.asset.json";
+import marketplaceCards from "../assets/marketplace-cards.png.asset.json";
+import ctaWaves from "../assets/cta-blue-wave.jpg.asset.json";
 import cardSales from "../assets/card-sales.jpg";
 import cardSupport from "../assets/card-support.jpg";
 import cardFinance from "../assets/card-finance.jpg";
@@ -419,12 +420,15 @@ function BrowserMock({ tall = false }: { tall?: boolean }) {
               </div>
             </div>
 
-            <div className="relative">
-              <div className="animate-[marquee_28s_linear_infinite] space-y-3 p-4 will-change-transform">
-                {[...FEED, ...FEED].map((c, i) => (
-                  <FeedCard key={i} {...c} />
-                ))}
-              </div>
+            <div className="relative h-full overflow-hidden">
+              <img
+                src={marketplaceCards.url}
+                alt="Flowmint marketplace feed of AI automation cards with workflow diagrams, ratings and pricing"
+                loading="eager"
+                width={1256}
+                height={1256}
+                className="w-full animate-[marquee_38s_linear_infinite] object-cover will-change-transform"
+              />
               <div className="pointer-events-none absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-background to-transparent" />
               <div className="pointer-events-none absolute inset-x-0 top-0 h-6 bg-gradient-to-b from-background to-transparent" />
             </div>
@@ -1544,8 +1548,8 @@ function ForBusinessesCreators() {
             body: "Discover, evaluate and deploy vetted automations aligned to your stack and goals.",
             bullets: ["Personalized marketplace", "Verified creators", "Escrow-secured payments", "Go live in days"],
             cta: "Explore Marketplace",
-            image: forBusinesses,
-            imageAlt: "Business team reviewing analytics and workflow dashboards in a bright modern office",
+            image: forBusinesses.url,
+            imageAlt: "Tailored automation system connecting Slack, Notion, Zapier and other tools",
           },
           {
             eyebrow: "For creators",
@@ -1553,8 +1557,8 @@ function ForBusinessesCreators() {
             body: "Turn your workflows into productized automations and get paid to deploy them.",
             bullets: ["Global distribution", "Owned pricing", "Business DNA matching", "Verified badge"],
             cta: "Become Creator",
-            image: forCreators,
-            imageAlt: "Independent creator building an automation workflow on a laptop at a minimal wooden desk",
+            image: forCreators.url,
+            imageAlt: "Creator mapping an automation userflow across design and development stages",
           },
         ].map((c) => (
           <article
