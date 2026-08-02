@@ -420,7 +420,6 @@ function BrowserMock({ tall = false }: { tall?: boolean }) {
               </div>
             </div>
 
-            <div className="relative">
             <div className="relative h-full overflow-hidden">
               <img
                 src={marketplaceCards.url}
@@ -433,7 +432,7 @@ function BrowserMock({ tall = false }: { tall?: boolean }) {
               <div className="pointer-events-none absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-background to-transparent" />
               <div className="pointer-events-none absolute inset-x-0 top-0 h-6 bg-gradient-to-b from-background to-transparent" />
             </div>
-
+          </div>
         </div>
       </div>
 
