@@ -421,15 +421,19 @@ function BrowserMock({ tall = false }: { tall?: boolean }) {
             </div>
 
             <div className="relative">
-              <div className="animate-[marquee_28s_linear_infinite] space-y-3 p-4 will-change-transform">
-                {[...FEED, ...FEED].map((c, i) => (
-                  <FeedCard key={i} {...c} />
-                ))}
-              </div>
+            <div className="relative h-full overflow-hidden">
+              <img
+                src={marketplaceCards.url}
+                alt="Flowmint marketplace feed of AI automation cards with workflow diagrams, ratings and pricing"
+                loading="eager"
+                width={1256}
+                height={1256}
+                className="w-full animate-[marquee_38s_linear_infinite] object-cover will-change-transform"
+              />
               <div className="pointer-events-none absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-background to-transparent" />
               <div className="pointer-events-none absolute inset-x-0 top-0 h-6 bg-gradient-to-b from-background to-transparent" />
             </div>
-          </div>
+
         </div>
       </div>
 
