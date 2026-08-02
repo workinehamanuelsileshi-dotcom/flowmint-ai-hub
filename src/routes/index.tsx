@@ -363,9 +363,10 @@ function BrowserMock({ tall = false }: { tall?: boolean }) {
         </div>
 
         {/* body */}
-        <div className={`grid grid-cols-[168px_1fr] ${tall ? "h-[620px]" : "h-[500px]"}`}>
+        <div className="grid grid-cols-1">
           {/* sidebar */}
-          <aside className="border-r border-border p-4">
+          <aside className="hidden border-r border-border p-4">
+
             <div className="flex items-center gap-2 rounded-md border border-border px-2.5 py-1.5 text-[11px] text-muted-foreground">
               <Search className="h-3 w-3" />
               <span>Search</span>
@@ -977,12 +978,12 @@ function BusinessDNA() {
         <div className="space-y-4">
           <div className="group relative overflow-hidden rounded-2xl border border-border bg-card shadow-[0_30px_80px_-40px_rgba(15,23,42,0.25)] ring-1 ring-black/[0.02]">
             <img
-              src={dnaWorkspace}
-              alt="Workspace with laptop showing analytics dashboard and hand-drawn workflow diagrams in a notebook"
+              src={businessDna.url}
+              alt="Crystalline glass DNA double helix representing a business's unique AI profile"
               loading="lazy"
-              width={1280}
-              height={960}
-              className="h-56 w-full object-cover transition-transform duration-[600ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.03] md:h-64"
+              width={736}
+              height={981}
+              className="h-72 w-full object-cover object-center transition-transform duration-[600ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.03] md:h-80"
             />
             <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-card/50 via-transparent to-transparent" />
           </div>
