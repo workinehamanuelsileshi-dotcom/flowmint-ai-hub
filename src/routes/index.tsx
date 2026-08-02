@@ -1545,7 +1545,9 @@ function ForBusinessesCreators() {
             body: "Discover, evaluate and deploy vetted automations aligned to your stack and goals.",
             bullets: ["Personalized marketplace", "Verified creators", "Escrow-secured payments", "Go live in days"],
             cta: "Explore Marketplace",
-            image: forBusinesses,
+            image: forBusinesses.url,
+            imageAlt: "Tailored automation system connecting Slack, Notion, Zapier and other tools",
+
             imageAlt: "Business team reviewing analytics and workflow dashboards in a bright modern office",
           },
           {
