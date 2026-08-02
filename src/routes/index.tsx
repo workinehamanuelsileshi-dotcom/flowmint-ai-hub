@@ -38,7 +38,7 @@ import {
   Scale,
   Home,
 } from "lucide-react";
-import dnaWorkspace from "../assets/dna-workspace.jpg";
+import businessDna from "../assets/business-dna.jpg.asset.json";
 import forBusinesses from "../assets/built-for-you.jpg.asset.json";
 import forCreators from "../assets/creator-flow.jpg.asset.json";
 import marketplaceCards from "../assets/marketplace-cards.png.asset.json";
@@ -420,17 +420,15 @@ function BrowserMock({ tall = false }: { tall?: boolean }) {
               </div>
             </div>
 
-            <div className="relative h-full overflow-hidden">
+            <div className="relative w-full">
               <img
                 src={marketplaceCards.url}
                 alt="Flowmint marketplace feed of AI automation cards with workflow diagrams, ratings and pricing"
                 loading="eager"
                 width={1256}
                 height={1256}
-                className="w-full animate-[marquee_38s_linear_infinite] object-cover will-change-transform"
+                className="block h-auto w-full object-contain"
               />
-              <div className="pointer-events-none absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-background to-transparent" />
-              <div className="pointer-events-none absolute inset-x-0 top-0 h-6 bg-gradient-to-b from-background to-transparent" />
             </div>
           </div>
         </div>
