@@ -38,7 +38,7 @@ import {
   Scale,
   Home,
 } from "lucide-react";
-import dnaWorkspace from "../assets/dna-workspace.jpg";
+import businessDna from "../assets/business-dna.jpg.asset.json";
 import forBusinesses from "../assets/built-for-you.jpg.asset.json";
 import forCreators from "../assets/creator-flow.jpg.asset.json";
 import marketplaceCards from "../assets/marketplace-cards.png.asset.json";
@@ -363,9 +363,10 @@ function BrowserMock({ tall = false }: { tall?: boolean }) {
         </div>
 
         {/* body */}
-        <div className={`grid grid-cols-[168px_1fr] ${tall ? "h-[620px]" : "h-[500px]"}`}>
+        <div className="grid grid-cols-1">
           {/* sidebar */}
-          <aside className="border-r border-border p-4">
+          <aside className="hidden border-r border-border p-4">
+
             <div className="flex items-center gap-2 rounded-md border border-border px-2.5 py-1.5 text-[11px] text-muted-foreground">
               <Search className="h-3 w-3" />
               <span>Search</span>
@@ -420,17 +421,15 @@ function BrowserMock({ tall = false }: { tall?: boolean }) {
               </div>
             </div>
 
-            <div className="relative h-full overflow-hidden">
+            <div className="relative w-full">
               <img
                 src={marketplaceCards.url}
                 alt="Flowmint marketplace feed of AI automation cards with workflow diagrams, ratings and pricing"
                 loading="eager"
                 width={1256}
                 height={1256}
-                className="w-full animate-[marquee_38s_linear_infinite] object-cover will-change-transform"
+                className="block h-auto w-full object-contain"
               />
-              <div className="pointer-events-none absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-background to-transparent" />
-              <div className="pointer-events-none absolute inset-x-0 top-0 h-6 bg-gradient-to-b from-background to-transparent" />
             </div>
           </div>
         </div>
@@ -979,12 +978,12 @@ function BusinessDNA() {
         <div className="space-y-4">
           <div className="group relative overflow-hidden rounded-2xl border border-border bg-card shadow-[0_30px_80px_-40px_rgba(15,23,42,0.25)] ring-1 ring-black/[0.02]">
             <img
-              src={dnaWorkspace}
-              alt="Workspace with laptop showing analytics dashboard and hand-drawn workflow diagrams in a notebook"
+              src={businessDna.url}
+              alt="Crystalline glass DNA double helix representing a business's unique AI profile"
               loading="lazy"
-              width={1280}
-              height={960}
-              className="h-56 w-full object-cover transition-transform duration-[600ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.03] md:h-64"
+              width={736}
+              height={981}
+              className="h-72 w-full object-cover object-center transition-transform duration-[600ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.03] md:h-80"
             />
             <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-card/50 via-transparent to-transparent" />
           </div>
@@ -1823,17 +1822,32 @@ function Footer() {
               The AI Automation Marketplace. Built for businesses that ship.
             </p>
             <div className="mt-6 flex items-center gap-3 text-muted-foreground">
-              {["X", "in", "GH", "YT"].map((s) => (
+              {[
+                { label: "X", src: "https://cdn.simpleicons.org/x/000000" },
+                { label: "LinkedIn", src: "https://cdn.simpleicons.org/linkedin/000000" },
+                { label: "GitHub", src: "https://cdn.simpleicons.org/github/000000" },
+                { label: "YouTube", src: "https://cdn.simpleicons.org/youtube/000000" },
+              ].map((s) => (
                 <a
-                  key={s}
+                  key={s.label}
                   href="#"
-                  className="flex h-8 w-8 items-center justify-center rounded-full border border-border text-[10.5px] font-medium transition-colors hover:border-primary hover:text-primary"
+                  aria-label={s.label}
+                  className="flex h-9 w-9 items-center justify-center rounded-full border border-border transition-all duration-300 hover:-translate-y-0.5 hover:border-primary hover:bg-primary/5"
                 >
-                  {s}
+                  <img
+                    src={s.src}
+                    alt=""
+                    aria-hidden="true"
+                    loading="lazy"
+                    width={14}
+                    height={14}
+                    className="h-3.5 w-3.5 opacity-60 transition-opacity hover:opacity-100"
+                  />
                 </a>
               ))}
             </div>
           </div>
+
           {cols.map((c) => (
             <div key={c.title}>
               <p className="text-[12px] font-medium uppercase tracking-[0.14em] text-foreground">
@@ -1851,7 +1865,13 @@ function Footer() {
             </div>
           ))}
         </div>
-        <div className="mt-16 flex flex-col items-start justify-between gap-4 border-t border-border pt-8 text-[12.5px] text-muted-foreground md:flex-row md:items-center">
+        <div className="mt-20 select-none overflow-hidden">
+          <p className="whitespace-nowrap text-center text-[22vw] font-semibold leading-[0.8] tracking-[-0.06em] text-foreground/[0.06] md:text-[19vw]">
+            Flowmint
+          </p>
+        </div>
+        <div className="mt-10 flex flex-col items-start justify-between gap-4 border-t border-border pt-8 text-[12.5px] text-muted-foreground md:flex-row md:items-center">
+
           <p>© {new Date().getFullYear()} Flowmint, Inc. All rights reserved.</p>
           <ul className="flex gap-6">
             <li><a href="#" className="hover:text-foreground">Privacy</a></li>
