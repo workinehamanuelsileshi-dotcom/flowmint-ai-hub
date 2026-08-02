@@ -1865,7 +1865,13 @@ function Footer() {
             </div>
           ))}
         </div>
-        <div className="mt-16 flex flex-col items-start justify-between gap-4 border-t border-border pt-8 text-[12.5px] text-muted-foreground md:flex-row md:items-center">
+        <div className="mt-20 select-none overflow-hidden">
+          <p className="whitespace-nowrap text-center text-[22vw] font-semibold leading-[0.8] tracking-[-0.06em] text-foreground/[0.06] md:text-[19vw]">
+            Flowmint
+          </p>
+        </div>
+        <div className="mt-10 flex flex-col items-start justify-between gap-4 border-t border-border pt-8 text-[12.5px] text-muted-foreground md:flex-row md:items-center">
+
           <p>© {new Date().getFullYear()} Flowmint, Inc. All rights reserved.</p>
           <ul className="flex gap-6">
             <li><a href="#" className="hover:text-foreground">Privacy</a></li>
