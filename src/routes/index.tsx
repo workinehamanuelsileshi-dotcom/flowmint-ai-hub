@@ -39,9 +39,10 @@ import {
   Home,
 } from "lucide-react";
 import dnaWorkspace from "../assets/dna-workspace.jpg";
-import forBusinesses from "../assets/for-businesses.jpg";
-import forCreators from "../assets/for-creators.jpg";
-import ctaWaves from "../assets/cta-waves.jpg.asset.json";
+import forBusinesses from "../assets/built-for-you.jpg.asset.json";
+import forCreators from "../assets/creator-flow.jpg.asset.json";
+import marketplaceCards from "../assets/marketplace-cards.png.asset.json";
+import ctaWaves from "../assets/cta-blue-wave.jpg.asset.json";
 import cardSales from "../assets/card-sales.jpg";
 import cardSupport from "../assets/card-support.jpg";
 import cardFinance from "../assets/card-finance.jpg";
