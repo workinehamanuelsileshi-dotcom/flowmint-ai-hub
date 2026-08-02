@@ -1547,8 +1547,6 @@ function ForBusinessesCreators() {
             cta: "Explore Marketplace",
             image: forBusinesses.url,
             imageAlt: "Tailored automation system connecting Slack, Notion, Zapier and other tools",
-
-            imageAlt: "Business team reviewing analytics and workflow dashboards in a bright modern office",
           },
           {
             eyebrow: "For creators",
@@ -1556,8 +1554,8 @@ function ForBusinessesCreators() {
             body: "Turn your workflows into productized automations and get paid to deploy them.",
             bullets: ["Global distribution", "Owned pricing", "Business DNA matching", "Verified badge"],
             cta: "Become Creator",
-            image: forCreators,
-            imageAlt: "Independent creator building an automation workflow on a laptop at a minimal wooden desk",
+            image: forCreators.url,
+            imageAlt: "Creator mapping an automation userflow across design and development stages",
           },
         ].map((c) => (
           <article
