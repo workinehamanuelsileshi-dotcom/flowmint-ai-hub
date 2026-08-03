@@ -1468,7 +1468,8 @@ function AutomationPreview({ kind }: { kind: "sales" | "support" | "finance" | "
 
 function WhyFlowmint() {
   return (
-    <section className="py-32 md:py-40">
+    <section className="relative py-32 md:py-40">
+      <BlueprintBg />
       <div className="mx-auto max-w-[1240px] px-6 lg:px-8">
         <div className="max-w-3xl">
           <p className="text-[11px] font-medium uppercase tracking-[0.18em] text-muted-foreground">
@@ -1481,13 +1482,13 @@ function WhyFlowmint() {
 
         <div className="mt-14 grid gap-4 md:grid-cols-6 md:grid-rows-3">
           <BentoCard className="md:col-span-3 md:row-span-2" icon={Sparkles} title="Business DNA" body="A living profile that gets sharper with every interaction.">
-            <div className="mt-6 rounded-xl border border-border p-4">
+            <div className="mt-6 rounded-xl border border-border bg-background/60 p-4 backdrop-blur-xl">
               <div className="flex justify-between text-[11px] text-muted-foreground">
                 <span>Match confidence</span>
-                <span>92%</span>
+                <span className="font-medium text-foreground">92%</span>
               </div>
-              <div className="mt-2 h-1 rounded-full bg-muted">
-                <div className="h-full w-[92%] rounded-full bg-primary" />
+              <div className="mt-2 h-1 overflow-hidden rounded-full bg-muted">
+                <div className="h-full w-[92%] rounded-full bg-gradient-to-r from-primary/60 to-primary transition-[width] duration-700 ease-out" />
               </div>
               <ul className="mt-4 space-y-2 text-[12px] text-muted-foreground">
                 <li className="flex justify-between"><span>Industry fit</span><span className="text-foreground">B2B SaaS</span></li>
@@ -1495,17 +1496,189 @@ function WhyFlowmint() {
                 <li className="flex justify-between"><span>Priority</span><span className="text-foreground">Lead ops</span></li>
               </ul>
             </div>
+            <DnaOrbit />
           </BentoCard>
-          <BentoCard className="md:col-span-3" icon={Compass} title="AI Recommendations" body="Personalized feed, not popularity contest." />
-          <BentoCard className="md:col-span-3" icon={Shield} title="Verified Creators" body="Every creator vetted for craft and reliability." />
-          <BentoCard className="md:col-span-2" icon={Layers} title="Workflow Previews" body="See the full workflow before you buy." />
-          <BentoCard className="md:col-span-2" icon={BarChart3} title="ROI Estimates" body="Hours saved and dollars back, upfront." />
-          <BentoCard className="md:col-span-2" icon={Building2} title="Enterprise Ready" body="SSO, audit logs and workspace controls." />
-          <BentoCard className="md:col-span-3" icon={Zap} title="Fast Deployment" body="Go from browse to live in days." />
-          <BentoCard className="md:col-span-3" icon={Bookmark} title="Secure Payments" body="Escrow, receipts and refund guarantees." />
+          <BentoCard className="md:col-span-3" icon={Compass} title="AI Recommendations" body="Personalized feed, not popularity contest.">
+            <RecoVisual />
+          </BentoCard>
+          <BentoCard className="md:col-span-3" icon={Shield} title="Verified Creators" body="Every creator vetted for craft and reliability.">
+            <VerifiedVisual />
+          </BentoCard>
+          <BentoCard className="md:col-span-2" icon={Layers} title="Workflow Previews" body="See the full workflow before you buy.">
+            <ChainVisual />
+          </BentoCard>
+          <BentoCard className="md:col-span-2" icon={BarChart3} title="ROI Estimates" body="Hours saved and dollars back, upfront.">
+            <RoiVisual />
+          </BentoCard>
+          <BentoCard className="md:col-span-2" icon={Building2} title="Enterprise Ready" body="SSO, audit logs and workspace controls.">
+            <ChipRow items={["SSO", "SOC 2", "Audit logs", "RBAC"]} />
+          </BentoCard>
+          <BentoCard className="md:col-span-3" icon={Zap} title="Fast Deployment" body="Go from browse to live in days.">
+            <DeployVisual />
+          </BentoCard>
+          <BentoCard className="md:col-span-3" icon={Bookmark} title="Secure Payments" body="Escrow, receipts and refund guarantees.">
+            <PaymentsVisual />
+          </BentoCard>
         </div>
       </div>
     </section>
+  );
+}
+
+/* Bento micro-visuals */
+
+function DnaOrbit() {
+  return (
+    <div aria-hidden className="pointer-events-none absolute -right-16 -top-16 h-56 w-56 opacity-70">
+      <div className="absolute inset-0 rounded-full bg-primary/10 blur-[60px]" />
+      <div className="absolute inset-6 rounded-full border border-foreground/[0.08]" />
+      <div className="absolute inset-12 rounded-full border border-foreground/[0.06]" />
+      <div className="absolute inset-[72px] rounded-full border border-primary/20" />
+    </div>
+  );
+}
+
+function RecoVisual() {
+  const rows = [
+    { slug: "hubspot", name: "HubSpot", label: "Lead scoring", score: "98%" },
+    { slug: "slack", name: "Slack", label: "Deal alerts", score: "94%" },
+    { slug: "notion", name: "Notion", label: "Meeting notes", score: "89%" },
+  ];
+  return (
+    <div className="mt-6 space-y-2">
+      {rows.map((r, i) => (
+        <div
+          key={r.slug}
+          className="flex items-center gap-3 rounded-xl border border-border bg-background/60 px-3 py-2 backdrop-blur-xl transition-all duration-500 group-hover:border-foreground/15"
+          style={{ transitionDelay: `${i * 60}ms` }}
+        >
+          <span className="flex h-6 w-6 items-center justify-center rounded-md border border-border bg-card">
+            <LogoIcon slug={r.slug} name={r.name} size={12} />
+          </span>
+          <span className="text-[12px] text-foreground">{r.label}</span>
+          <span className="ml-auto font-mono text-[11px] text-muted-foreground">{r.score}</span>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function VerifiedVisual() {
+  return (
+    <div className="mt-6 flex items-center gap-3">
+      <div className="flex -space-x-2">
+        {["A", "M", "R", "K"].map((c, i) => (
+          <span
+            key={c}
+            className="flex h-8 w-8 items-center justify-center rounded-full border border-background bg-muted text-[11px] font-medium text-muted-foreground transition-transform duration-500 group-hover:translate-x-0"
+            style={{ transform: `translateX(${i * 2}px)` }}
+          >
+            {c}
+          </span>
+        ))}
+      </div>
+      <span className="inline-flex items-center gap-1.5 rounded-full border border-primary/20 bg-primary/5 px-2.5 py-1 text-[11px] font-medium text-primary">
+        <Check className="h-3 w-3" strokeWidth={2.5} /> Verified
+      </span>
+      <span className="ml-auto font-mono text-[11px] text-muted-foreground">1,284</span>
+    </div>
+  );
+}
+
+function ChainVisual() {
+  const nodes = [
+    { slug: "typeform", name: "Typeform" },
+    { slug: "openai", name: "OpenAI" },
+    { slug: "slack", name: "Slack" },
+  ];
+  return (
+    <div className="mt-6 flex items-center">
+      {nodes.map((n, i) => (
+        <div key={n.slug} className="flex items-center">
+          <span className="flex h-8 w-8 items-center justify-center rounded-lg border border-border bg-background/70 backdrop-blur-xl">
+            <LogoIcon slug={n.slug} name={n.name} size={14} />
+          </span>
+          {i < nodes.length - 1 && (
+            <span className="mx-1.5 h-px w-8 bg-[linear-gradient(to_right,transparent,currentColor,transparent)] text-border" />
+          )}
+        </div>
+      ))}
+      <span className="ml-auto font-mono text-[11px] text-muted-foreground">6 steps</span>
+    </div>
+  );
+}
+
+function RoiVisual() {
+  const bars = [34, 52, 46, 68, 80, 96];
+  return (
+    <div className="mt-6">
+      <div className="flex h-16 items-end gap-1.5">
+        {bars.map((h, i) => (
+          <span
+            key={i}
+            className="flex-1 rounded-sm bg-foreground/10 transition-all duration-500 ease-out group-hover:bg-primary/70"
+            style={{ height: `${h}%`, transitionDelay: `${i * 45}ms` }}
+          />
+        ))}
+      </div>
+      <div className="mt-3 flex items-baseline gap-2">
+        <span className="text-[18px] font-medium tracking-tight">$14.2k</span>
+        <span className="text-[11px] text-muted-foreground">saved / month</span>
+      </div>
+    </div>
+  );
+}
+
+function ChipRow({ items }: { items: string[] }) {
+  return (
+    <div className="mt-6 flex flex-wrap gap-1.5">
+      {items.map((t) => (
+        <span
+          key={t}
+          className="rounded-full border border-border bg-background/60 px-2.5 py-1 text-[11px] text-muted-foreground backdrop-blur-xl transition-colors group-hover:border-foreground/15 group-hover:text-foreground"
+        >
+          {t}
+        </span>
+      ))}
+    </div>
+  );
+}
+
+function DeployVisual() {
+  const steps = ["Browse", "Preview", "Connect", "Live"];
+  return (
+    <div className="mt-6 flex items-center gap-2">
+      {steps.map((s, i) => (
+        <div key={s} className="flex flex-1 items-center gap-2">
+          <div className="min-w-0 flex-1">
+            <div className="h-1 rounded-full bg-muted">
+              <div
+                className="h-full rounded-full bg-primary/70 transition-[width] duration-700 ease-out"
+                style={{ width: i < 3 ? "100%" : "45%", transitionDelay: `${i * 90}ms` }}
+              />
+            </div>
+            <p className="mt-2 truncate text-[10.5px] text-muted-foreground">{s}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function PaymentsVisual() {
+  return (
+    <div className="mt-6 flex items-center gap-3 rounded-xl border border-border bg-background/60 px-3.5 py-3 backdrop-blur-xl">
+      <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary/10">
+        <Wallet className="h-4 w-4 text-primary" strokeWidth={1.5} />
+      </span>
+      <div>
+        <p className="text-[12px] font-medium">Escrow released</p>
+        <p className="text-[11px] text-muted-foreground">After successful deployment</p>
+      </div>
+      <span className="ml-auto inline-flex items-center gap-1 rounded-full border border-border px-2 py-0.5 font-mono text-[10.5px] text-muted-foreground">
+        <Check className="h-3 w-3" strokeWidth={2.5} /> Paid
+      </span>
+    </div>
   );
 }
 
@@ -1524,15 +1697,22 @@ function BentoCard({
 }) {
   return (
     <div
-      className={`group relative overflow-hidden rounded-2xl border border-border bg-card p-7 transition-all duration-300 hover:-translate-y-0.5 hover:border-foreground/20 hover:shadow-[0_20px_50px_-25px_rgba(0,0,0,0.12)] ${className}`}
+      className={`group relative overflow-hidden rounded-2xl border border-border bg-card/70 p-7 backdrop-blur-xl transition-all duration-500 [transition-timing-function:cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-1 hover:border-foreground/20 hover:shadow-[0_30px_70px_-35px_rgba(0,0,0,0.25)] ${className}`}
     >
-      <Icon className="h-5 w-5 text-foreground transition-colors group-hover:text-primary" strokeWidth={1.5} />
-      <h3 className="mt-6 text-[18px] font-medium tracking-tight">{title}</h3>
-      <p className="mt-2 max-w-md text-[14px] leading-[1.55] text-muted-foreground">{body}</p>
-      {children}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-x-0 -top-24 h-40 bg-[radial-gradient(60%_100%_at_50%_100%,color-mix(in_oklab,var(--primary)_16%,transparent),transparent)] opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+      />
+      <span className="relative flex h-9 w-9 items-center justify-center rounded-xl border border-border bg-background/70 transition-colors duration-300 group-hover:border-primary/30 group-hover:bg-primary/5">
+        <Icon className="h-[18px] w-[18px] text-foreground transition-colors group-hover:text-primary" strokeWidth={1.5} />
+      </span>
+      <h3 className="relative mt-6 text-[18px] font-medium tracking-tight">{title}</h3>
+      <p className="relative mt-2 max-w-md text-[14px] leading-[1.55] text-muted-foreground">{body}</p>
+      <div className="relative">{children}</div>
     </div>
   );
 }
+
 
 /* ── For Businesses / Creators ───────────────────────────────── */
 
