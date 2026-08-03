@@ -152,6 +152,8 @@ function Landing() {
         <FeaturedAutomations />
         <WhyFlowmint />
         <ForBusinessesCreators />
+        <Creators />
+
         <Outcomes />
         <FAQ />
         <FinalCTA />
