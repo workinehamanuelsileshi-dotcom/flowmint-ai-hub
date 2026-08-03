@@ -1599,7 +1599,7 @@ function Creators() {
           </div>
         </div>
 
-        <SpiralImages className="mt-16" />
+        {/* Originkit <SpiralImages /> mounts here once the CLI key is provided */}
 
         <div className="mt-16 grid gap-5 md:grid-cols-3">
           {CREATORS.map((c) => (
