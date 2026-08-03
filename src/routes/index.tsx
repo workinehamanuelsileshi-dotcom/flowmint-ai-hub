@@ -38,11 +38,11 @@ import {
   Scale,
   Home,
 } from "lucide-react";
-import businessDna from "../assets/business-dna.jpg.asset.json";
-import forBusinesses from "../assets/built-for-you.jpg.asset.json";
-import forCreators from "../assets/creator-flow.jpg.asset.json";
-import marketplaceCards from "../assets/marketplace-cards.png.asset.json";
-import ctaWaves from "../assets/cta-blue-wave.jpg.asset.json";
+import businessDna from "../assets/business-dna.jpg";
+import forBusinesses from "../assets/built-for-you.jpg";
+import forCreators from "../assets/creator-flow.jpg";
+import marketplaceCards from "../assets/marketplace-cards.png";
+import ctaWaves from "../assets/cta-blue-wave.jpg";
 import cardSales from "../assets/card-sales.jpg";
 import cardSupport from "../assets/card-support.jpg";
 import cardFinance from "../assets/card-finance.jpg";
@@ -423,7 +423,7 @@ function BrowserMock({ tall = false }: { tall?: boolean }) {
 
             <div className="relative w-full">
               <img
-                src={marketplaceCards.url}
+                src={marketplaceCards}
                 alt="Flowmint marketplace feed of AI automation cards with workflow diagrams, ratings and pricing"
                 loading="eager"
                 width={1256}
@@ -978,7 +978,7 @@ function BusinessDNA() {
         <div className="space-y-4">
           <div className="group relative overflow-hidden rounded-2xl border border-border bg-card shadow-[0_30px_80px_-40px_rgba(15,23,42,0.25)] ring-1 ring-black/[0.02]">
             <img
-              src={businessDna.url}
+              src={businessDna}
               alt="Crystalline glass DNA double helix representing a business's unique AI profile"
               loading="lazy"
               width={736}
@@ -1547,7 +1547,7 @@ function ForBusinessesCreators() {
             body: "Discover, evaluate and deploy vetted automations aligned to your stack and goals.",
             bullets: ["Personalized marketplace", "Verified creators", "Escrow-secured payments", "Go live in days"],
             cta: "Explore Marketplace",
-            image: forBusinesses.url,
+            image: forBusinesses,
             imageAlt: "Tailored automation system connecting Slack, Notion, Zapier and other tools",
           },
           {
@@ -1556,7 +1556,7 @@ function ForBusinessesCreators() {
             body: "Turn your workflows into productized automations and get paid to deploy them.",
             bullets: ["Global distribution", "Owned pricing", "Business DNA matching", "Verified badge"],
             cta: "Become Creator",
-            image: forCreators.url,
+            image: forCreators,
             imageAlt: "Creator mapping an automation userflow across design and development stages",
           },
         ].map((c) => (
@@ -1747,7 +1747,7 @@ function FinalCTA() {
   return (
     <section className="relative overflow-hidden py-40 md:py-56">
       <img
-        src={ctaWaves.url}
+        src={ctaWaves}
         alt=""
         aria-hidden="true"
         loading="lazy"
