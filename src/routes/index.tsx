@@ -152,6 +152,8 @@ function Landing() {
         <FeaturedAutomations />
         <WhyFlowmint />
         <ForBusinessesCreators />
+        <Creators />
+
         <Outcomes />
         <FAQ />
         <FinalCTA />
@@ -1467,6 +1469,7 @@ function AutomationPreview({ kind }: { kind: "sales" | "support" | "finance" | "
 /* ── Why Flowmint (Bento) ────────────────────────────────────── */
 
 function WhyFlowmint() {
+
   return (
     <section className="relative py-32 md:py-40">
       <BlueprintBg />
@@ -1524,6 +1527,144 @@ function WhyFlowmint() {
     </section>
   );
 }
+
+/* ── Creators ────────────────────────────────────────────────── */
+
+const CREATORS = [
+  {
+    name: "Amara Osei",
+    handle: "@amara.builds",
+    role: "RevOps automation",
+    initials: "AO",
+    blurb:
+      "Ex-HubSpot solutions architect. Builds lead routing and enrichment flows that cut response time to minutes.",
+    stack: ["hubspot", "openai", "slack"],
+    deploys: "1,240",
+    rating: "4.9",
+    tint: "from-primary/15",
+  },
+  {
+    name: "Diego Marín",
+    handle: "@diego.flows",
+    role: "Support & CX",
+    initials: "DM",
+    blurb:
+      "Designs deflection systems for high-volume helpdesks. Ships tone-safe AI replies with human escalation built in.",
+    stack: ["zendesk", "anthropic", "notion"],
+    deploys: "860",
+    rating: "4.8",
+    tint: "from-indigo-500/15",
+  },
+  {
+    name: "Lena Kowalski",
+    handle: "@lena.ops",
+    role: "Finance ops",
+    initials: "LK",
+    blurb:
+      "Automates reconciliation, invoice capture and approvals for finance teams that still live in spreadsheets.",
+    stack: ["xero", "stripe", "googlesheets"],
+    deploys: "615",
+    rating: "5.0",
+    tint: "from-sky-500/15",
+  },
+];
+
+function Creators() {
+  return (
+    <section id="creators" className="relative border-t border-border py-32 md:py-40">
+      <BlueprintBg />
+      <div className="mx-auto max-w-[1240px] px-6 lg:px-8">
+        <div className="flex flex-col gap-8 md:flex-row md:items-end md:justify-between">
+          <div className="max-w-2xl">
+            <p className="text-[11px] font-medium uppercase tracking-[0.18em] text-muted-foreground">
+              The creators
+            </p>
+            <h2 className="mt-5 text-balance text-[40px] font-medium leading-[1.05] tracking-[-0.035em] md:text-[52px]">
+              Built by the people who automate for a living.
+            </h2>
+            <p className="mt-5 max-w-xl text-[16px] leading-[1.65] text-muted-foreground">
+              Every automation on Flowmint is authored by a vetted operator — RevOps
+              architects, support leads and finance engineers who have shipped these
+              systems inside real companies.
+            </p>
+          </div>
+          <div className="flex gap-10">
+            {[
+              { v: "2,400+", l: "Verified creators" },
+              { v: "38", l: "Countries" },
+              { v: "$4.1M", l: "Paid out" },
+            ].map((s) => (
+              <div key={s.l}>
+                <div className="text-[26px] font-medium tracking-[-0.03em]">{s.v}</div>
+                <div className="mt-1 text-[12px] text-muted-foreground">{s.l}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Originkit <SpiralImages /> mounts here once the CLI key is provided */}
+
+        <div className="mt-16 grid gap-5 md:grid-cols-3">
+          {CREATORS.map((c) => (
+            <article
+              key={c.handle}
+              className="group relative overflow-hidden rounded-2xl border border-border bg-card/70 p-8 backdrop-blur-xl transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-1 hover:shadow-[0_40px_90px_-40px_rgba(15,23,42,0.25)]"
+            >
+              <div
+                className={`pointer-events-none absolute -right-16 -top-16 h-40 w-40 rounded-full bg-gradient-to-br ${c.tint} to-transparent opacity-0 blur-2xl transition-opacity duration-500 group-hover:opacity-100`}
+              />
+              <div className="flex items-center gap-3">
+                <div className="flex h-11 w-11 items-center justify-center rounded-full border border-border bg-background text-[13px] font-medium tracking-[-0.02em]">
+                  {c.initials}
+                </div>
+                <div>
+                  <div className="flex items-center gap-1.5 text-[15px] font-medium tracking-[-0.02em]">
+                    {c.name}
+                    <Check className="h-3.5 w-3.5 rounded-full bg-primary p-[2px] text-background" />
+                  </div>
+                  <div className="text-[12px] text-muted-foreground">{c.handle}</div>
+                </div>
+              </div>
+              <p className="mt-5 text-[11px] font-medium uppercase tracking-[0.16em] text-muted-foreground">
+                {c.role}
+              </p>
+              <p className="mt-3 text-[14.5px] leading-[1.6] text-muted-foreground">{c.blurb}</p>
+              <div className="mt-6 flex items-center gap-2">
+                {c.stack.map((s) => (
+                  <span
+                    key={s}
+                    className="flex h-7 w-7 items-center justify-center rounded-lg border border-border bg-background"
+                  >
+                    <LogoIcon slug={s} name={s} size={13} />
+                  </span>
+                ))}
+              </div>
+              <div className="mt-7 flex items-center justify-between border-t border-border pt-5 text-[12px] text-muted-foreground">
+                <span>{c.deploys} deploys</span>
+                <span className="flex items-center gap-1 text-foreground">
+                  <Star className="h-3.5 w-3.5 fill-current text-primary" />
+                  {c.rating}
+                </span>
+              </div>
+            </article>
+          ))}
+        </div>
+
+        <div className="mt-12">
+          <a
+            href="#"
+            className="group inline-flex h-11 items-center gap-2 rounded-full bg-foreground px-5 text-[13.5px] font-medium text-background transition-colors hover:bg-primary"
+          >
+            Meet the creators
+            <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+          </a>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+
 
 /* Bento micro-visuals */
 
