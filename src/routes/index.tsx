@@ -1467,6 +1467,7 @@ function AutomationPreview({ kind }: { kind: "sales" | "support" | "finance" | "
 /* ── Why Flowmint (Bento) ────────────────────────────────────── */
 
 function WhyFlowmint() {
+
   return (
     <section className="relative py-32 md:py-40">
       <BlueprintBg />
