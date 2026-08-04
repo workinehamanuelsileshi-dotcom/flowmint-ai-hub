@@ -48,6 +48,8 @@ import cardSupport from "../assets/card-support.jpg";
 import cardFinance from "../assets/card-finance.jpg";
 import cardVoice from "../assets/card-voice.jpg";
 import cardOps from "../assets/card-ops.jpg";
+import SpiralImages from "@/components/originkit/ui/spiralimages";
+
 
 /* ── Shared helpers ──────────────────────────────────────────── */
 
