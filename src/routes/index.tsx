@@ -48,7 +48,11 @@ import cardSupport from "../assets/card-support.jpg";
 import cardFinance from "../assets/card-finance.jpg";
 import cardVoice from "../assets/card-voice.jpg";
 import cardOps from "../assets/card-ops.jpg";
+import creatorAmara from "../assets/creator-amara.jpg";
+import creatorDiego from "../assets/creator-diego.jpg";
+import creatorLena from "../assets/creator-lena.jpg";
 import SpiralImages from "@/components/originkit/ui/spiralimages";
+
 
 
 /* ── Shared helpers ──────────────────────────────────────────── */
@@ -1533,8 +1537,11 @@ function WhyFlowmint() {
 /* ── Creators ────────────────────────────────────────────────── */
 
 const SPIRAL_IMAGES = [
+  { src: creatorAmara },
   { src: cardSales },
+  { src: creatorDiego },
   { src: cardSupport },
+  { src: creatorLena },
   { src: cardFinance },
   { src: cardVoice },
   { src: cardOps },
@@ -1542,7 +1549,6 @@ const SPIRAL_IMAGES = [
   { src: businessDna },
   { src: forBusinesses },
   { src: forCreators },
-  { src: ctaWaves },
 ];
 
 const CREATORS = [
@@ -1551,7 +1557,7 @@ const CREATORS = [
     name: "Amara Osei",
     handle: "@amara.builds",
     role: "RevOps automation",
-    initials: "AO",
+    photo: creatorAmara,
     blurb:
       "Ex-HubSpot solutions architect. Builds lead routing and enrichment flows that cut response time to minutes.",
     stack: ["hubspot", "openai", "slack"],
@@ -1563,7 +1569,7 @@ const CREATORS = [
     name: "Diego Marín",
     handle: "@diego.flows",
     role: "Support & CX",
-    initials: "DM",
+    photo: creatorDiego,
     blurb:
       "Designs deflection systems for high-volume helpdesks. Ships tone-safe AI replies with human escalation built in.",
     stack: ["zendesk", "anthropic", "notion"],
@@ -1575,7 +1581,7 @@ const CREATORS = [
     name: "Lena Kowalski",
     handle: "@lena.ops",
     role: "Finance ops",
-    initials: "LK",
+    photo: creatorLena,
     blurb:
       "Automates reconciliation, invoice capture and approvals for finance teams that still live in spreadsheets.",
     stack: ["xero", "stripe", "googlesheets"],
@@ -1584,6 +1590,7 @@ const CREATORS = [
     tint: "from-sky-500/15",
   },
 ];
+
 
 function Creators() {
   return (
@@ -1648,9 +1655,15 @@ function Creators() {
                 className={`pointer-events-none absolute -right-16 -top-16 h-40 w-40 rounded-full bg-gradient-to-br ${c.tint} to-transparent opacity-0 blur-2xl transition-opacity duration-500 group-hover:opacity-100`}
               />
               <div className="flex items-center gap-3">
-                <div className="flex h-11 w-11 items-center justify-center rounded-full border border-border bg-background text-[13px] font-medium tracking-[-0.02em]">
-                  {c.initials}
-                </div>
+                <img
+                  src={c.photo}
+                  alt={`Portrait of ${c.name}, ${c.role} creator on Flowmint`}
+                  loading="lazy"
+                  width={816}
+                  height={816}
+                  className="h-12 w-12 rounded-full object-cover ring-1 ring-border transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.06]"
+                />
+
                 <div>
                   <div className="flex items-center gap-1.5 text-[15px] font-medium tracking-[-0.02em]">
                     {c.name}
