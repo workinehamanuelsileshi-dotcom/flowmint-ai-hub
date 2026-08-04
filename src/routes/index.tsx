@@ -48,6 +48,8 @@ import cardSupport from "../assets/card-support.jpg";
 import cardFinance from "../assets/card-finance.jpg";
 import cardVoice from "../assets/card-voice.jpg";
 import cardOps from "../assets/card-ops.jpg";
+import SpiralImages from "@/components/originkit/ui/spiralimages";
+
 
 /* ── Shared helpers ──────────────────────────────────────────── */
 
@@ -1530,7 +1532,21 @@ function WhyFlowmint() {
 
 /* ── Creators ────────────────────────────────────────────────── */
 
+const SPIRAL_IMAGES = [
+  { src: cardSales },
+  { src: cardSupport },
+  { src: cardFinance },
+  { src: cardVoice },
+  { src: cardOps },
+  { src: marketplaceCards },
+  { src: businessDna },
+  { src: forBusinesses },
+  { src: forCreators },
+  { src: ctaWaves },
+];
+
 const CREATORS = [
+
   {
     name: "Amara Osei",
     handle: "@amara.builds",
@@ -1602,7 +1618,25 @@ function Creators() {
           </div>
         </div>
 
-        {/* Originkit <SpiralImages /> mounts here once the CLI key is provided */}
+        <div className="relative mt-16 h-[420px] overflow-hidden rounded-2xl border border-border bg-card/60 backdrop-blur-xl md:h-[520px]">
+          <SpiralImages
+            images={SPIRAL_IMAGES}
+            turns={3.5}
+            speed={1.6}
+            imageSize={180}
+            cornerRadius={12}
+          />
+          <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-background via-transparent to-background/60" />
+          <div className="pointer-events-none absolute inset-x-0 bottom-0 p-8 text-center">
+            <p className="text-[11px] font-medium uppercase tracking-[0.18em] text-muted-foreground">
+              Live from the creator network
+            </p>
+            <p className="mt-2 text-[18px] font-medium tracking-[-0.02em]">
+              Thousands of automations, published every week.
+            </p>
+          </div>
+        </div>
+
 
         <div className="mt-16 grid gap-5 md:grid-cols-3">
           {CREATORS.map((c) => (
