@@ -984,17 +984,6 @@ function BusinessDNA() {
         </div>
 
         <div className="space-y-4">
-          <div className="group relative overflow-hidden rounded-2xl border border-border bg-card shadow-[0_30px_80px_-40px_rgba(15,23,42,0.25)] ring-1 ring-black/[0.02]">
-            <img
-              src={businessDna}
-              alt="Crystalline glass DNA double helix representing a business's unique AI profile"
-              loading="lazy"
-              width={736}
-              height={981}
-              className="h-72 w-full object-cover object-center transition-transform duration-[600ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.03] md:h-80"
-            />
-            <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-card/50 via-transparent to-transparent" />
-          </div>
           <div className="rounded-2xl border border-border bg-card p-8">
             <ol className="space-y-2">
               {steps.map((s, i) => {
