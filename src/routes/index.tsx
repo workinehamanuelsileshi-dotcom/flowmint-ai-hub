@@ -1655,9 +1655,15 @@ function Creators() {
                 className={`pointer-events-none absolute -right-16 -top-16 h-40 w-40 rounded-full bg-gradient-to-br ${c.tint} to-transparent opacity-0 blur-2xl transition-opacity duration-500 group-hover:opacity-100`}
               />
               <div className="flex items-center gap-3">
-                <div className="flex h-11 w-11 items-center justify-center rounded-full border border-border bg-background text-[13px] font-medium tracking-[-0.02em]">
-                  {c.initials}
-                </div>
+                <img
+                  src={c.photo}
+                  alt={`Portrait of ${c.name}, ${c.role} creator on Flowmint`}
+                  loading="lazy"
+                  width={816}
+                  height={816}
+                  className="h-12 w-12 rounded-full object-cover ring-1 ring-border transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.06]"
+                />
+
                 <div>
                   <div className="flex items-center gap-1.5 text-[15px] font-medium tracking-[-0.02em]">
                     {c.name}
