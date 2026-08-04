@@ -720,7 +720,7 @@ function Ecosystem() {
     { name: "Notion", slug: "notion" },
   ];
   return (
-    <section className="border-y border-border py-24 md:py-28">
+    <section className="border-y border-border py-12 md:py-14">
       <div className="mx-auto max-w-[1240px] px-6 lg:px-8">
         <p className="text-center text-[11px] font-medium uppercase tracking-[0.18em] text-muted-foreground">
           Trusted ecosystem
@@ -772,7 +772,7 @@ function Problem() {
     },
   ];
   return (
-    <section className="py-32 md:py-40">
+    <section className="py-14 md:py-16">
       <div className="mx-auto max-w-[1240px] px-6 lg:px-8">
         <div className="max-w-3xl">
           <p className="text-[11px] font-medium uppercase tracking-[0.18em] text-muted-foreground">
@@ -816,7 +816,7 @@ function Problem() {
 
 function Solution() {
   return (
-    <section className="relative py-32 md:py-40">
+    <section className="relative py-14 md:py-16">
       <BlueprintBg />
       <div className="mx-auto grid max-w-[1240px] items-center gap-16 px-6 lg:grid-cols-2 lg:gap-24 lg:px-8">
         <WorkflowDiagram />
@@ -921,7 +921,7 @@ function WorkflowDiagram() {
 
 function MarketplacePreview() {
   return (
-    <section className="py-32 md:py-40">
+    <section className="py-14 md:py-16">
       <div className="mx-auto max-w-[1240px] px-6 lg:px-8">
         <div className="mx-auto max-w-3xl text-center">
           <p className="text-[11px] font-medium uppercase tracking-[0.18em] text-muted-foreground">
@@ -957,7 +957,7 @@ function BusinessDNA() {
     "Personalized marketplace",
   ];
   return (
-    <section className="border-y border-border bg-muted/40 py-32 md:py-40">
+    <section className="border-y border-border bg-muted/40 py-14 md:py-16">
       <div className="mx-auto grid max-w-[1240px] items-center gap-16 px-6 lg:grid-cols-[1fr_1.1fr] lg:gap-20 lg:px-8">
         <div>
           <p className="text-[11px] font-medium uppercase tracking-[0.18em] text-muted-foreground">
@@ -984,17 +984,6 @@ function BusinessDNA() {
         </div>
 
         <div className="space-y-4">
-          <div className="group relative overflow-hidden rounded-2xl border border-border bg-card shadow-[0_30px_80px_-40px_rgba(15,23,42,0.25)] ring-1 ring-black/[0.02]">
-            <img
-              src={businessDna}
-              alt="Crystalline glass DNA double helix representing a business's unique AI profile"
-              loading="lazy"
-              width={736}
-              height={981}
-              className="h-72 w-full object-cover object-center transition-transform duration-[600ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.03] md:h-80"
-            />
-            <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-card/50 via-transparent to-transparent" />
-          </div>
           <div className="rounded-2xl border border-border bg-card p-8">
             <ol className="space-y-2">
               {steps.map((s, i) => {
@@ -1040,7 +1029,7 @@ function HowItWorks() {
     { icon: Rocket, title: "Deploy automation", body: "Go live in days, not months." },
   ];
   return (
-    <section className="py-32 md:py-40">
+    <section className="py-14 md:py-16">
       <div className="mx-auto max-w-[1240px] px-6 lg:px-8">
         <div className="flex flex-col items-end justify-between gap-8 md:flex-row">
           <div>
@@ -1101,7 +1090,7 @@ function Categories() {
     { name: "Real Estate", icon: Home, count: "47 automations", detail: "Leads, tours, listing ops", logos: ["airtable", "whatsapp"] },
   ];
   return (
-    <section className="py-32 md:py-40">
+    <section className="py-14 md:py-16">
       <div className="mx-auto max-w-[1240px] px-6 lg:px-8">
         <div className="max-w-3xl">
           <p className="text-[11px] font-medium uppercase tracking-[0.18em] text-muted-foreground">
@@ -1230,7 +1219,7 @@ function FeaturedAutomations() {
     },
   ];
   return (
-    <section className="relative border-y border-border py-32 md:py-40">
+    <section className="relative border-y border-border py-14 md:py-16">
       <BlueprintBg />
       <div className="mx-auto max-w-[1240px] px-6 lg:px-8">
         <div className="flex items-end justify-between gap-8">
@@ -1477,7 +1466,7 @@ function AutomationPreview({ kind }: { kind: "sales" | "support" | "finance" | "
 function WhyFlowmint() {
 
   return (
-    <section className="relative py-32 md:py-40">
+    <section className="relative py-14 md:py-16">
       <BlueprintBg />
       <div className="mx-auto max-w-[1240px] px-6 lg:px-8">
         <div className="max-w-3xl">
@@ -1594,7 +1583,7 @@ const CREATORS = [
 
 function Creators() {
   return (
-    <section id="creators" className="relative border-t border-border py-32 md:py-40">
+    <section id="creators" className="relative border-t border-border py-14 md:py-16">
       <BlueprintBg />
       <div className="mx-auto max-w-[1240px] px-6 lg:px-8">
         <div className="flex flex-col gap-8 md:flex-row md:items-end md:justify-between">
@@ -1906,7 +1895,7 @@ function BentoCard({
 
 function ForBusinessesCreators() {
   return (
-    <section className="border-t border-border py-32 md:py-40">
+    <section className="border-t border-border py-14 md:py-16">
       <div className="mx-auto grid max-w-[1240px] gap-5 px-6 md:grid-cols-2 lg:px-8">
         {[
           {
@@ -1987,7 +1976,7 @@ function Outcomes() {
     { v: "4", u: "days", label: "From discovery to deployment" },
   ];
   return (
-    <section className="border-y border-border bg-muted/40 py-32 md:py-40">
+    <section className="border-y border-border bg-muted/40 py-14 md:py-16">
       <div className="mx-auto max-w-[1240px] px-6 lg:px-8">
         <div className="max-w-3xl">
           <p className="text-[11px] font-medium uppercase tracking-[0.18em] text-muted-foreground">
@@ -2042,7 +2031,7 @@ function FAQ() {
   const [activeIndex, setActiveIndex] = useState<number | null>(0);
 
   return (
-    <section className="py-32 md:py-40">
+    <section className="py-14 md:py-16">
       <div className="mx-auto grid max-w-[1240px] items-stretch gap-8 px-6 lg:grid-cols-[1.6fr_1fr] lg:px-8">
         {/* Animated gradient CTA */}
         <div className="c5-animated-gradient relative flex flex-col items-center justify-center overflow-hidden rounded-[24px] px-10 py-20 text-center text-primary-foreground shadow-[0_10px_30px_rgba(0,0,0,0.05)]">
@@ -2178,7 +2167,7 @@ function Footer() {
     { title: "Company", links: ["About", "Careers", "Press", "Contact", "Legal"] },
   ];
   return (
-    <footer className="border-t border-border py-20">
+    <footer className="border-t border-border py-12">
       <div className="mx-auto max-w-[1240px] px-6 lg:px-8">
         <div className="grid gap-12 md:grid-cols-[1.4fr_repeat(4,1fr)]">
           <div>
