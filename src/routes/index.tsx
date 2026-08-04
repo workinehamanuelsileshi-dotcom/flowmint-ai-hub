@@ -1532,7 +1532,21 @@ function WhyFlowmint() {
 
 /* ── Creators ────────────────────────────────────────────────── */
 
+const SPIRAL_IMAGES = [
+  { src: cardSales },
+  { src: cardSupport },
+  { src: cardFinance },
+  { src: cardVoice },
+  { src: cardOps },
+  { src: marketplaceCards },
+  { src: businessDna },
+  { src: forBusinesses },
+  { src: forCreators },
+  { src: ctaWaves },
+];
+
 const CREATORS = [
+
   {
     name: "Amara Osei",
     handle: "@amara.builds",
