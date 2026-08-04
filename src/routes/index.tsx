@@ -1533,8 +1533,11 @@ function WhyFlowmint() {
 /* ── Creators ────────────────────────────────────────────────── */
 
 const SPIRAL_IMAGES = [
+  { src: creatorAmara },
   { src: cardSales },
+  { src: creatorDiego },
   { src: cardSupport },
+  { src: creatorLena },
   { src: cardFinance },
   { src: cardVoice },
   { src: cardOps },
@@ -1542,7 +1545,6 @@ const SPIRAL_IMAGES = [
   { src: businessDna },
   { src: forBusinesses },
   { src: forCreators },
-  { src: ctaWaves },
 ];
 
 const CREATORS = [
@@ -1551,7 +1553,7 @@ const CREATORS = [
     name: "Amara Osei",
     handle: "@amara.builds",
     role: "RevOps automation",
-    initials: "AO",
+    photo: creatorAmara,
     blurb:
       "Ex-HubSpot solutions architect. Builds lead routing and enrichment flows that cut response time to minutes.",
     stack: ["hubspot", "openai", "slack"],
@@ -1563,7 +1565,7 @@ const CREATORS = [
     name: "Diego Marín",
     handle: "@diego.flows",
     role: "Support & CX",
-    initials: "DM",
+    photo: creatorDiego,
     blurb:
       "Designs deflection systems for high-volume helpdesks. Ships tone-safe AI replies with human escalation built in.",
     stack: ["zendesk", "anthropic", "notion"],
@@ -1575,7 +1577,7 @@ const CREATORS = [
     name: "Lena Kowalski",
     handle: "@lena.ops",
     role: "Finance ops",
-    initials: "LK",
+    photo: creatorLena,
     blurb:
       "Automates reconciliation, invoice capture and approvals for finance teams that still live in spreadsheets.",
     stack: ["xero", "stripe", "googlesheets"],
@@ -1584,6 +1586,7 @@ const CREATORS = [
     tint: "from-sky-500/15",
   },
 ];
+
 
 function Creators() {
   return (
