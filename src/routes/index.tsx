@@ -147,7 +147,7 @@ function Landing() {
     <div className="min-h-screen bg-background text-foreground font-sans antialiased selection:bg-primary/15 selection:text-primary">
       <Nav />
       <main>
-        <Hero />
+        <Hero09 />
         <Ecosystem />
         <Problem />
         <Solution />
