@@ -1534,17 +1534,14 @@ function WhyFlowmint() {
 
 const SPIRAL_IMAGES = [
   { src: creatorAmara },
-  { src: cardSales },
+  { src: creatorP1 },
   { src: creatorDiego },
-  { src: cardSupport },
+  { src: creatorP2 },
   { src: creatorLena },
-  { src: cardFinance },
-  { src: cardVoice },
-  { src: cardOps },
-  { src: marketplaceCards },
-  { src: businessDna },
-  { src: forBusinesses },
-  { src: forCreators },
+  { src: creatorP3 },
+  { src: creatorP4 },
+  { src: creatorP5 },
+  { src: creatorP6 },
 ];
 
 const CREATORS = [
