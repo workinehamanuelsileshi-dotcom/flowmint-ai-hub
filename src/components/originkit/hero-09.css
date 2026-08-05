@@ -472,10 +472,6 @@
     text-wrap: balance;
   }
 
-  .h09-headline-block h1 br {
-    display: none;
-  }
-
   .h09-actions {
     gap: 12px;
     margin-top: 20px;
