@@ -52,6 +52,12 @@ import cardOps from "../assets/card-ops.jpg";
 import creatorAmara from "../assets/creator-amara.jpg";
 import creatorDiego from "../assets/creator-diego.jpg";
 import creatorLena from "../assets/creator-lena.jpg";
+import creatorP1 from "../assets/creator-p1.jpg";
+import creatorP2 from "../assets/creator-p2.jpg";
+import creatorP3 from "../assets/creator-p3.jpg";
+import creatorP4 from "../assets/creator-p4.jpg";
+import creatorP5 from "../assets/creator-p5.jpg";
+import creatorP6 from "../assets/creator-p6.jpg";
 import SpiralImages from "@/components/originkit/ui/spiralimages";
 
 
