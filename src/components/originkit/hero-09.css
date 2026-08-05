@@ -576,3 +576,9 @@
   letter-spacing: 0.14em;
   text-transform: uppercase;
 }
+
+@media (max-width: 800px) {
+  .h09-hero-shell {
+    padding-top: 64px;
+  }
+}
