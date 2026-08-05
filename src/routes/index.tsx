@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import Hero09 from "@/components/originkit/hero-09";
 import { useEffect, useRef, useState } from "react";
 import {
   Search,
