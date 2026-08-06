@@ -43,7 +43,9 @@ export function CreatorsHero() {
         <div aria-hidden="true" className="absolute inset-0 overflow-hidden">
           <GalleryTunnel
             background="#FFFFFF"
+            colors={["#DBE4FF", "#E7ECF5", "#C9D8FF", "#EDEFF3", "#D3DEF7", "#F1F3F7"]}
             lineColor="#C7D2FE"
+
             lineOpacity={45}
             grid={4}
             tunnelSize={tunnelSize}
