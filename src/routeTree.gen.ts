@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as CreatorsIndexRouteImport } from './routes/creators.index'
+import { Route as CreatorsApplyRouteImport } from './routes/creators.apply'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -22,30 +23,39 @@ const CreatorsIndexRoute = CreatorsIndexRouteImport.update({
   path: '/creators/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const CreatorsApplyRoute = CreatorsApplyRouteImport.update({
+  id: '/creators/apply',
+  path: '/creators/apply',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/creators/apply': typeof CreatorsApplyRoute
   '/creators/': typeof CreatorsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/creators/apply': typeof CreatorsApplyRoute
   '/creators': typeof CreatorsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/creators/apply': typeof CreatorsApplyRoute
   '/creators/': typeof CreatorsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/creators/'
+  fullPaths: '/' | '/creators/apply' | '/creators/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/creators'
-  id: '__root__' | '/' | '/creators/'
+  to: '/' | '/creators/apply' | '/creators'
+  id: '__root__' | '/' | '/creators/apply' | '/creators/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  CreatorsApplyRoute: typeof CreatorsApplyRoute
   CreatorsIndexRoute: typeof CreatorsIndexRoute
 }
 
@@ -65,11 +75,19 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CreatorsIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/creators/apply': {
+      id: '/creators/apply'
+      path: '/creators/apply'
+      fullPath: '/creators/apply'
+      preLoaderRoute: typeof CreatorsApplyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  CreatorsApplyRoute: CreatorsApplyRoute,
   CreatorsIndexRoute: CreatorsIndexRoute,
 }
 export const routeTree = rootRouteImport

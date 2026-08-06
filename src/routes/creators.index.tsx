@@ -679,7 +679,7 @@ function CreatorsPage() {
   return (
     <main className="min-h-screen bg-background text-foreground antialiased">
       <SiteNav active="Creators" />
-      <h1 className="sr-only">Flowmint for Creators</h1>
+
       <CreatorsHero />
       <ValueProps />
       <HowItWorks />
