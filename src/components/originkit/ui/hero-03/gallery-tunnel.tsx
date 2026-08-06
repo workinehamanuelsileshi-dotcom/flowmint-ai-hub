@@ -45,6 +45,8 @@ interface ImageBoxImage {
 
 interface ImageBoxProps {
     images: ImageBoxImage[];
+    /** Accepted for API compatibility with the section wrappers. */
+    tunnelSize: number;
     colors: string[];
     background: string;
     lineColor: string;
